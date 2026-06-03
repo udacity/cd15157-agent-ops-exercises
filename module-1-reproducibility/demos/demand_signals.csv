@@ -1,0 +1,6 @@
+region,property_type,bedrooms,search_volume,lead_count,recent_sales,demand_score
+west,apartment,2,1240,86,34,0.91
+north,apartment,1,620,31,12,0.54
+south,house,3,710,42,18,0.68
+east,apartment,2,980,73,21,0.82
+center,studio,1,430,19,8,0.47
