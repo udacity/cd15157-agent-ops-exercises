@@ -1,0 +1,16 @@
+region,property_type,bedrooms,active_listings,avg_days_on_market,supply_score
+west,apartment,1,42,31,0.44
+west,apartment,2,18,21,0.22
+west,house,3,67,48,0.72
+north,apartment,1,77,54,0.81
+north,apartment,2,24,28,0.31
+north,house,2,88,62,0.88
+south,apartment,2,39,35,0.48
+south,house,3,36,39,0.55
+south,house,4,52,44,0.62
+east,apartment,2,29,28,0.37
+east,studio,1,83,57,0.85
+east,house,3,44,41,0.58
+center,studio,1,91,63,0.88
+center,apartment,1,58,49,0.68
+center,apartment,2,71,52,0.76
