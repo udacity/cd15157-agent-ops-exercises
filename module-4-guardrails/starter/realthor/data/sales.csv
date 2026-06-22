@@ -1,0 +1,321 @@
+sale_id,listing_id,lead_id,region,neighborhood,property_type,bedrooms,sale_type,final_price,days_to_close,commission_amount,agent_performance_score
+SALE-00001,LST-00001,LEAD-00001,west,Westgate,apartment,1,ibuyer,192000,11,4800.0,0.55
+SALE-00002,LST-00002,LEAD-00002,west,Harbor View,apartment,1,ibuyer,196969,12,5416.65,0.6
+SALE-00003,LST-00003,LEAD-00003,west,Westgate,apartment,1,marketplace,201999,13,6059.97,0.64
+SALE-00004,LST-00004,LEAD-00004,west,Harbor View,apartment,1,marketplace,207091,14,6730.46,0.69
+SALE-00005,LST-00005,LEAD-00005,west,Westgate,apartment,1,marketplace,212244,15,5306.1,0.73
+SALE-00006,LST-00006,LEAD-00006,west,Harbor View,apartment,1,ibuyer,206692,16,5684.03,0.78
+SALE-00007,LST-00007,LEAD-00007,west,Westgate,apartment,1,ibuyer,211815,17,6354.45,0.82
+SALE-00008,LST-00008,LEAD-00008,west,Harbor View,apartment,1,marketplace,216998,18,7052.44,0.86
+SALE-00009,LST-00009,LEAD-00009,west,Westgate,apartment,1,marketplace,222243,19,5556.08,0.91
+SALE-00010,LST-00010,LEAD-00010,west,Harbor View,apartment,1,marketplace,227549,20,6257.6,0.96
+SALE-00011,LST-00011,LEAD-00011,west,Westgate,apartment,1,ibuyer,221385,21,6641.55,0.55
+SALE-00012,LST-00012,LEAD-00012,west,Harbor View,apartment,1,ibuyer,226660,22,7366.45,0.6
+SALE-00013,LST-00013,LEAD-00013,west,Westgate,apartment,1,marketplace,231997,23,5799.93,0.64
+SALE-00014,LST-00014,LEAD-00014,west,Harbor View,apartment,1,marketplace,237395,24,6528.36,0.69
+SALE-00015,LST-00015,LEAD-00015,west,Westgate,apartment,1,marketplace,242854,25,7285.62,0.73
+SALE-00016,LST-00016,LEAD-00016,west,Harbor View,apartment,1,ibuyer,236078,26,7672.53,0.78
+SALE-00017,LST-00017,LEAD-00017,west,Westgate,apartment,1,ibuyer,241506,27,6037.65,0.82
+SALE-00018,LST-00018,LEAD-00018,west,Harbor View,apartment,1,marketplace,246996,28,6792.39,0.86
+SALE-00019,LST-00019,LEAD-00019,west,Westgate,apartment,1,marketplace,252547,29,7576.41,0.91
+SALE-00020,LST-00020,LEAD-00020,west,Harbor View,apartment,1,marketplace,258159,30,8390.17,0.96
+SALE-00021,LST-00021,LEAD-00021,west,Westgate,apartment,1,ibuyer,250771,11,6269.28,0.55
+SALE-00022,LST-00022,LEAD-00022,west,Harbor View,apartment,1,ibuyer,256352,12,7049.68,0.6
+SALE-00023,LST-00023,LEAD-00023,west,Westgate,apartment,1,marketplace,261995,13,7859.85,0.64
+SALE-00024,LST-00024,LEAD-00024,west,Harbor View,apartment,1,marketplace,267698,14,8700.18,0.69
+SALE-00025,LST-00051,LEAD-00065,west,Westgate,apartment,2,ibuyer,268800,8,6720.0,0.55
+SALE-00026,LST-00052,LEAD-00066,west,Harbor View,apartment,2,ibuyer,279845,9,7695.74,0.6
+SALE-00027,LST-00053,LEAD-00067,west,Westgate,apartment,2,marketplace,291060,10,8731.8,0.64
+SALE-00028,LST-00054,LEAD-00068,west,Harbor View,apartment,2,marketplace,302445,11,9829.46,0.69
+SALE-00029,LST-00055,LEAD-00069,west,Westgate,apartment,2,marketplace,314000,12,7850.0,0.73
+SALE-00030,LST-00056,LEAD-00070,west,Harbor View,apartment,2,ibuyer,309600,13,8514.0,0.78
+SALE-00031,LST-00057,LEAD-00071,west,Westgate,apartment,2,ibuyer,321070,14,9632.1,0.82
+SALE-00032,LST-00058,LEAD-00072,west,Harbor View,apartment,2,marketplace,332710,15,10813.08,0.86
+SALE-00033,LST-00059,LEAD-00073,west,Westgate,apartment,2,marketplace,344520,16,8613.0,0.91
+SALE-00034,LST-00060,LEAD-00074,west,Harbor View,apartment,2,marketplace,356500,17,9803.75,0.96
+SALE-00035,LST-00061,LEAD-00075,west,Westgate,apartment,2,ibuyer,350400,18,10512.0,0.55
+SALE-00036,LST-00062,LEAD-00076,west,Harbor View,apartment,2,ibuyer,362295,19,11774.59,0.6
+SALE-00037,LST-00063,LEAD-00077,west,Westgate,apartment,2,marketplace,374360,20,9359.0,0.64
+SALE-00038,LST-00064,LEAD-00078,west,Harbor View,apartment,2,marketplace,386595,21,10631.36,0.69
+SALE-00039,LST-00065,LEAD-00079,west,Westgate,apartment,2,marketplace,399000,22,11970.0,0.73
+SALE-00040,LST-00066,LEAD-00080,west,Harbor View,apartment,2,ibuyer,391200,23,12714.0,0.78
+SALE-00041,LST-00067,LEAD-00081,west,Westgate,apartment,2,ibuyer,403520,24,10088.0,0.82
+SALE-00042,LST-00068,LEAD-00082,west,Harbor View,apartment,2,marketplace,416010,25,11440.27,0.86
+SALE-00043,LST-00069,LEAD-00083,west,Westgate,apartment,2,marketplace,428670,26,12860.1,0.91
+SALE-00044,LST-00070,LEAD-00084,west,Harbor View,apartment,2,marketplace,441500,27,14348.75,0.96
+SALE-00045,LST-00071,LEAD-00085,west,Westgate,apartment,2,ibuyer,432000,8,10800.0,0.55
+SALE-00046,LST-00051,LEAD-00086,west,Harbor View,apartment,2,ibuyer,271600,9,7469.0,0.6
+SALE-00047,LST-00052,LEAD-00087,west,Westgate,apartment,2,ibuyer,282730,10,8481.9,0.64
+SALE-00048,LST-00053,LEAD-00088,west,Harbor View,apartment,2,marketplace,294030,11,9555.98,0.69
+SALE-00049,LST-00054,LEAD-00089,west,Westgate,apartment,2,marketplace,305500,12,7637.5,0.73
+SALE-00050,LST-00055,LEAD-00090,west,Harbor View,apartment,2,marketplace,301440,13,8289.6,0.78
+SALE-00051,LST-00056,LEAD-00091,west,Westgate,apartment,2,ibuyer,312825,14,9384.75,0.82
+SALE-00052,LST-00057,LEAD-00092,west,Harbor View,apartment,2,ibuyer,324380,15,10542.35,0.86
+SALE-00053,LST-00058,LEAD-00093,west,Westgate,apartment,2,marketplace,336105,16,8402.62,0.91
+SALE-00054,LST-00059,LEAD-00094,west,Harbor View,apartment,2,marketplace,348000,17,9570.0,0.96
+SALE-00055,LST-00060,LEAD-00095,west,Westgate,apartment,2,marketplace,342240,18,10267.2,0.55
+SALE-00056,LST-00061,LEAD-00096,west,Harbor View,apartment,2,ibuyer,354050,19,11506.62,0.6
+SALE-00057,LST-00062,LEAD-00097,west,Westgate,apartment,2,ibuyer,366030,20,9150.75,0.64
+SALE-00058,LST-00063,LEAD-00098,west,Harbor View,apartment,2,marketplace,378180,21,10399.95,0.69
+SALE-00059,LST-00072,LEAD-00151,west,Westgate,house,3,ibuyer,384000,24,9600.0,0.55
+SALE-00060,LST-00073,LEAD-00152,west,Harbor View,house,3,ibuyer,390700,25,10744.25,0.6
+SALE-00061,LST-00074,LEAD-00153,west,Westgate,house,3,marketplace,397456,26,11923.68,0.64
+SALE-00062,LST-00075,LEAD-00154,west,Harbor View,house,3,marketplace,404268,27,13138.71,0.69
+SALE-00063,LST-00076,LEAD-00155,west,Westgate,house,3,marketplace,411136,28,10278.4,0.73
+SALE-00064,LST-00077,LEAD-00156,west,Harbor View,house,3,ibuyer,397363,29,10927.48,0.78
+SALE-00065,LST-00078,LEAD-00157,west,Westgate,house,3,ibuyer,404202,30,12126.06,0.82
+SALE-00066,LST-00079,LEAD-00158,west,Harbor View,house,3,marketplace,411098,31,13360.69,0.86
+SALE-00067,LST-00080,LEAD-00159,west,Westgate,house,3,marketplace,418049,32,10451.23,0.91
+SALE-00068,LST-00081,LEAD-00160,west,Harbor View,house,3,marketplace,425056,33,11689.04,0.96
+SALE-00069,LST-00082,LEAD-00161,west,Westgate,house,3,ibuyer,410726,34,12321.78,0.55
+SALE-00070,LST-00083,LEAD-00162,west,Harbor View,house,3,ibuyer,417705,35,13575.41,0.6
+SALE-00071,LST-00084,LEAD-00163,west,Westgate,house,3,marketplace,424739,36,10618.48,0.64
+SALE-00072,LST-00085,LEAD-00164,west,Harbor View,house,3,marketplace,431830,37,11875.33,0.69
+SALE-00073,LST-00152,LEAD-00189,west,Westgate,studio,1,ibuyer,144000,14,3600.0,0.55
+SALE-00074,LST-00153,LEAD-00190,west,Harbor View,studio,1,ibuyer,147751,15,4063.15,0.6
+SALE-00075,LST-00154,LEAD-00191,west,Westgate,studio,1,marketplace,151549,16,4546.47,0.64
+SALE-00076,LST-00155,LEAD-00192,west,Harbor View,studio,1,marketplace,155393,17,5050.27,0.69
+SALE-00077,LST-00156,LEAD-00193,west,Westgate,studio,1,marketplace,159284,18,3982.1,0.73
+SALE-00078,LST-00157,LEAD-00194,west,Harbor View,studio,1,ibuyer,155140,19,4266.35,0.78
+SALE-00079,LST-00158,LEAD-00195,west,Westgate,studio,1,ibuyer,159008,20,4770.24,0.82
+SALE-00080,LST-00159,LEAD-00196,west,Harbor View,studio,1,marketplace,162922,21,5294.97,0.86
+SALE-00081,LST-00160,LEAD-00197,west,Westgate,studio,1,marketplace,166882,22,4172.05,0.91
+SALE-00082,LST-00161,LEAD-00198,west,Harbor View,studio,1,marketplace,170889,23,4699.45,0.96
+SALE-00083,LST-00162,LEAD-00199,west,Westgate,studio,1,ibuyer,166281,24,4988.43,0.55
+SALE-00084,LST-00163,LEAD-00200,west,Harbor View,studio,1,ibuyer,170265,25,5533.61,0.6
+SALE-00085,LST-00164,LEAD-00201,west,Westgate,studio,1,marketplace,174294,26,4357.35,0.64
+SALE-00086,LST-00165,LEAD-00202,west,Harbor View,studio,1,marketplace,178371,27,4905.2,0.69
+SALE-00087,LST-00166,LEAD-00203,west,Westgate,studio,1,marketplace,182494,28,5474.82,0.73
+SALE-00088,LST-00167,LEAD-00204,west,Harbor View,studio,1,ibuyer,177422,29,5766.22,0.78
+SALE-00089,LST-00168,LEAD-00205,west,Westgate,studio,1,ibuyer,181521,30,4538.03,0.82
+SALE-00090,LST-00169,LEAD-00206,west,Harbor View,studio,1,marketplace,185667,31,5105.84,0.86
+SALE-00091,LST-00170,LEAD-00207,west,Westgate,studio,1,marketplace,189860,32,5695.8,0.91
+SALE-00092,LST-00209,LEAD-00240,north,Millwood,apartment,1,ibuyer,192000,31,4800.0,0.55
+SALE-00093,LST-00210,LEAD-00241,north,Northside,apartment,1,ibuyer,195598,32,5378.94,0.6
+SALE-00094,LST-00211,LEAD-00242,north,Millwood,apartment,1,marketplace,199230,33,5976.9,0.64
+SALE-00095,LST-00212,LEAD-00243,north,Northside,apartment,1,marketplace,202894,34,6594.06,0.69
+SALE-00096,LST-00213,LEAD-00244,north,Millwood,apartment,1,marketplace,206592,35,5164.8,0.73
+SALE-00097,LST-00214,LEAD-00245,north,Northside,apartment,1,ibuyer,199910,36,5497.52,0.78
+SALE-00098,LST-00215,LEAD-00246,north,Millwood,apartment,1,ibuyer,203591,37,6107.73,0.82
+SALE-00099,LST-00216,LEAD-00247,north,Northside,apartment,1,marketplace,207305,38,6737.41,0.86
+SALE-00100,LST-00217,LEAD-00248,north,Millwood,apartment,1,marketplace,211052,39,5276.3,0.91
+SALE-00101,LST-00218,LEAD-00249,north,Northside,apartment,1,marketplace,214832,40,5907.88,0.96
+SALE-00102,LST-00219,LEAD-00250,north,Millwood,apartment,1,ibuyer,207820,41,6234.6,0.55
+SALE-00103,LST-00220,LEAD-00251,north,Northside,apartment,1,ibuyer,211584,42,6876.48,0.6
+SALE-00104,LST-00301,LEAD-00271,north,Millwood,apartment,2,ibuyer,268800,19,6720.0,0.55
+SALE-00105,LST-00302,LEAD-00272,north,Northside,apartment,2,ibuyer,277707,20,7636.94,0.6
+SALE-00106,LST-00303,LEAD-00273,north,Millwood,apartment,2,marketplace,286740,21,8602.2,0.64
+SALE-00107,LST-00304,LEAD-00274,north,Northside,apartment,2,marketplace,295899,22,9616.72,0.69
+SALE-00108,LST-00305,LEAD-00275,north,Millwood,apartment,2,marketplace,305184,23,7629.6,0.73
+SALE-00109,LST-00306,LEAD-00276,north,Northside,apartment,2,ibuyer,299020,24,8223.05,0.78
+SALE-00110,LST-00307,LEAD-00277,north,Millwood,apartment,2,ibuyer,308242,25,9247.26,0.82
+SALE-00111,LST-00308,LEAD-00278,north,Northside,apartment,2,marketplace,317590,26,10321.68,0.86
+SALE-00112,LST-00309,LEAD-00279,north,Millwood,apartment,2,marketplace,327064,27,8176.6,0.91
+SALE-00113,LST-00310,LEAD-00280,north,Northside,apartment,2,marketplace,336664,28,9258.26,0.96
+SALE-00114,LST-00311,LEAD-00281,north,Millwood,apartment,2,ibuyer,329241,29,9877.23,0.55
+SALE-00115,LST-00312,LEAD-00282,north,Northside,apartment,2,ibuyer,338778,30,11010.28,0.6
+SALE-00116,LST-00313,LEAD-00283,north,Millwood,apartment,2,marketplace,348440,31,8711.0,0.64
+SALE-00117,LST-00314,LEAD-00284,north,Northside,apartment,2,marketplace,358229,32,9851.3,0.69
+SALE-00118,LST-00315,LEAD-00285,north,Millwood,apartment,2,marketplace,368144,33,11044.32,0.73
+SALE-00119,LST-00316,LEAD-00286,north,Northside,apartment,2,ibuyer,359462,34,11682.52,0.78
+SALE-00120,LST-00317,LEAD-00287,north,Millwood,apartment,2,ibuyer,369313,35,9232.83,0.82
+SALE-00121,LST-00318,LEAD-00288,north,Northside,apartment,2,marketplace,379291,36,10430.5,0.86
+SALE-00122,LST-00319,LEAD-00289,north,Millwood,apartment,2,marketplace,389394,37,11681.82,0.91
+SALE-00123,LST-00320,LEAD-00290,north,Northside,apartment,2,marketplace,399624,38,12987.78,0.96
+SALE-00124,LST-00321,LEAD-00291,north,Millwood,apartment,2,ibuyer,389683,19,9742.08,0.55
+SALE-00125,LST-00322,LEAD-00292,north,Northside,apartment,2,ibuyer,399849,20,10995.85,0.6
+SALE-00126,LST-00323,LEAD-00293,north,Millwood,apartment,2,marketplace,410141,21,12304.23,0.64
+SALE-00127,LST-00324,LEAD-00294,north,Northside,apartment,2,marketplace,420559,22,13668.17,0.69
+SALE-00128,LST-00325,LEAD-00295,north,Millwood,apartment,2,marketplace,431104,23,10777.6,0.73
+SALE-00129,LST-00326,LEAD-00296,north,Northside,apartment,2,ibuyer,419904,24,11547.36,0.78
+SALE-00130,LST-00329,LEAD-00342,north,Millwood,house,2,ibuyer,336000,48,8400.0,0.55
+SALE-00131,LST-00330,LEAD-00343,north,Northside,house,2,ibuyer,341084,49,9379.81,0.6
+SALE-00132,LST-00331,LEAD-00344,north,Millwood,house,2,marketplace,346202,50,10386.06,0.64
+SALE-00133,LST-00332,LEAD-00345,north,Northside,house,2,marketplace,351352,51,11418.94,0.69
+SALE-00134,LST-00333,LEAD-00346,north,Millwood,house,2,marketplace,356536,52,8913.4,0.73
+SALE-00135,LST-00334,LEAD-00347,north,Northside,house,2,ibuyer,343843,53,9455.68,0.78
+SALE-00136,LST-00335,LEAD-00348,north,Millwood,house,2,ibuyer,349009,54,10470.27,0.82
+SALE-00137,LST-00336,LEAD-00349,north,Northside,house,2,marketplace,354209,55,11511.79,0.86
+SALE-00138,LST-00434,LEAD-00364,north,Millwood,house,3,ibuyer,384000,53,9600.0,0.55
+SALE-00139,LST-00435,LEAD-00365,north,Northside,house,3,ibuyer,389921,54,10722.83,0.6
+SALE-00140,LST-00436,LEAD-00366,north,Millwood,house,3,marketplace,395882,55,11876.46,0.64
+SALE-00141,LST-00437,LEAD-00367,north,Northside,house,3,marketplace,401883,56,13061.2,0.69
+SALE-00142,LST-00438,LEAD-00368,north,Millwood,house,3,marketplace,407924,57,10198.1,0.73
+SALE-00143,LST-00439,LEAD-00369,north,Northside,house,3,ibuyer,393508,58,10821.47,0.78
+SALE-00144,LST-00546,LEAD-00383,south,Riverdale,apartment,2,ibuyer,268800,22,6720.0,0.55
+SALE-00145,LST-00547,LEAD-00384,south,Southpark,apartment,2,ibuyer,275263,23,7569.73,0.6
+SALE-00146,LST-00548,LEAD-00385,south,Riverdale,apartment,2,marketplace,281802,24,8454.06,0.64
+SALE-00147,LST-00549,LEAD-00386,south,Southpark,apartment,2,marketplace,288417,25,9373.55,0.69
+SALE-00148,LST-00550,LEAD-00387,south,Riverdale,apartment,2,marketplace,295108,26,7377.7,0.73
+SALE-00149,LST-00551,LEAD-00388,south,Southpark,apartment,2,ibuyer,286929,27,7890.55,0.78
+SALE-00150,LST-00552,LEAD-00389,south,Riverdale,apartment,2,ibuyer,293582,28,8807.46,0.82
+SALE-00151,LST-00553,LEAD-00390,south,Southpark,apartment,2,marketplace,300310,29,9760.08,0.86
+SALE-00152,LST-00554,LEAD-00391,south,Riverdale,apartment,2,marketplace,307113,30,7677.83,0.91
+SALE-00153,LST-00555,LEAD-00392,south,Southpark,apartment,2,marketplace,313993,31,8634.81,0.96
+SALE-00154,LST-00556,LEAD-00393,south,Riverdale,apartment,2,ibuyer,305059,32,9151.77,0.55
+SALE-00155,LST-00557,LEAD-00394,south,Southpark,apartment,2,ibuyer,311900,33,10136.75,0.6
+SALE-00156,LST-00558,LEAD-00395,south,Riverdale,apartment,2,marketplace,318817,34,7970.43,0.64
+SALE-00157,LST-00559,LEAD-00396,south,Southpark,apartment,2,marketplace,325809,35,8959.75,0.69
+SALE-00158,LST-00560,LEAD-00397,south,Riverdale,apartment,2,marketplace,332878,36,9986.34,0.73
+SALE-00159,LST-00561,LEAD-00398,south,Southpark,apartment,2,ibuyer,323188,37,10503.61,0.78
+SALE-00160,LST-00562,LEAD-00399,south,Riverdale,apartment,2,ibuyer,330219,38,8255.48,0.82
+SALE-00161,LST-00563,LEAD-00400,south,Southpark,apartment,2,marketplace,337324,39,9276.41,0.86
+SALE-00162,LST-00564,LEAD-00401,south,Riverdale,apartment,2,marketplace,344506,40,10335.18,0.91
+SALE-00163,LST-00592,LEAD-00441,south,Riverdale,house,3,ibuyer,384000,25,9600.0,0.55
+SALE-00164,LST-00593,LEAD-00442,south,Southpark,house,3,ibuyer,393080,26,10809.7,0.6
+SALE-00165,LST-00594,LEAD-00443,south,Riverdale,house,3,marketplace,402266,27,12067.98,0.64
+SALE-00166,LST-00595,LEAD-00444,south,Southpark,house,3,marketplace,411556,28,13375.57,0.69
+SALE-00167,LST-00596,LEAD-00445,south,Riverdale,house,3,marketplace,420952,29,10523.8,0.73
+SALE-00168,LST-00597,LEAD-00446,south,Southpark,house,3,ibuyer,409142,30,11251.41,0.78
+SALE-00169,LST-00598,LEAD-00447,south,Riverdale,house,3,ibuyer,418485,31,12554.55,0.82
+SALE-00170,LST-00599,LEAD-00448,south,Southpark,house,3,marketplace,427932,32,13907.79,0.86
+SALE-00171,LST-00600,LEAD-00449,south,Riverdale,house,3,marketplace,437484,33,10937.1,0.91
+SALE-00172,LST-00601,LEAD-00450,south,Southpark,house,3,marketplace,447142,34,12296.41,0.96
+SALE-00173,LST-00602,LEAD-00451,south,Riverdale,house,3,ibuyer,434284,35,13028.52,0.55
+SALE-00174,LST-00603,LEAD-00452,south,Southpark,house,3,ibuyer,443889,36,14426.39,0.6
+SALE-00175,LST-00604,LEAD-00453,south,Riverdale,house,3,marketplace,453598,37,11339.95,0.64
+SALE-00176,LST-00605,LEAD-00454,south,Southpark,house,3,marketplace,463413,38,12743.86,0.69
+SALE-00177,LST-00606,LEAD-00455,south,Riverdale,house,3,marketplace,473332,39,14199.96,0.73
+SALE-00178,LST-00607,LEAD-00456,south,Southpark,house,3,ibuyer,459427,40,14931.38,0.78
+SALE-00179,LST-00608,LEAD-00457,south,Riverdale,house,3,ibuyer,469293,41,11732.33,0.82
+SALE-00180,LST-00609,LEAD-00458,south,Southpark,house,3,marketplace,479265,42,13179.79,0.86
+SALE-00181,LST-00635,LEAD-00483,south,Riverdale,house,4,ibuyer,480000,37,12000.0,0.55
+SALE-00182,LST-00636,LEAD-00484,south,Southpark,house,4,ibuyer,488179,38,13424.92,0.6
+SALE-00183,LST-00637,LEAD-00485,south,Riverdale,house,4,marketplace,496424,39,14892.72,0.64
+SALE-00184,LST-00638,LEAD-00486,south,Southpark,house,4,marketplace,504735,40,16403.89,0.69
+SALE-00185,LST-00639,LEAD-00487,south,Riverdale,house,4,marketplace,513112,41,12827.8,0.73
+SALE-00186,LST-00640,LEAD-00488,south,Southpark,house,4,ibuyer,495734,42,13632.68,0.78
+SALE-00187,LST-00641,LEAD-00489,south,Riverdale,house,4,ibuyer,504077,43,15122.31,0.82
+SALE-00188,LST-00642,LEAD-00490,south,Southpark,house,4,marketplace,512487,44,16655.83,0.86
+SALE-00189,LST-00643,LEAD-00491,south,Riverdale,house,4,marketplace,520961,45,13024.03,0.91
+SALE-00190,LST-00697,LEAD-00510,south,Riverdale,studio,1,ibuyer,144000,12,3600.0,0.55
+SALE-00191,LST-00698,LEAD-00511,south,Southpark,studio,1,ibuyer,150544,13,4139.96,0.6
+SALE-00192,LST-00699,LEAD-00512,south,Riverdale,studio,1,marketplace,157192,14,4715.76,0.64
+SALE-00193,LST-00700,LEAD-00513,south,Southpark,studio,1,marketplace,163944,15,5328.18,0.69
+SALE-00194,LST-00701,LEAD-00514,south,Riverdale,studio,1,marketplace,170800,16,4270.0,0.73
+SALE-00195,LST-00702,LEAD-00515,south,Southpark,studio,1,ibuyer,168960,17,4646.4,0.78
+SALE-00196,LST-00703,LEAD-00516,south,Riverdale,studio,1,ibuyer,175764,18,5272.92,0.82
+SALE-00197,LST-00704,LEAD-00517,south,Southpark,studio,1,marketplace,182672,19,5936.84,0.86
+SALE-00198,LST-00705,LEAD-00518,south,Riverdale,studio,1,marketplace,189684,20,4742.1,0.91
+SALE-00199,LST-00706,LEAD-00519,south,Southpark,studio,1,marketplace,196800,21,5412.0,0.96
+SALE-00200,LST-00707,LEAD-00520,south,Riverdale,studio,1,ibuyer,193920,22,5817.6,0.55
+SALE-00201,LST-00708,LEAD-00521,south,Southpark,studio,1,ibuyer,200984,23,6531.98,0.6
+SALE-00202,LST-00709,LEAD-00522,south,Riverdale,studio,1,marketplace,208152,24,5203.8,0.64
+SALE-00203,LST-00710,LEAD-00523,south,Southpark,studio,1,marketplace,215424,25,5924.16,0.69
+SALE-00204,LST-00711,LEAD-00524,south,Riverdale,studio,1,marketplace,222800,26,6684.0,0.73
+SALE-00205,LST-00712,LEAD-00525,south,Southpark,studio,1,ibuyer,218880,27,7113.6,0.78
+SALE-00206,LST-00713,LEAD-00526,south,Riverdale,studio,1,ibuyer,226204,28,5655.1,0.82
+SALE-00207,LST-00714,LEAD-00527,south,Southpark,studio,1,marketplace,233632,29,6424.88,0.86
+SALE-00208,LST-00715,LEAD-00528,south,Riverdale,studio,1,marketplace,241164,30,7234.92,0.91
+SALE-00209,LST-00716,LEAD-00529,south,Southpark,studio,1,marketplace,248800,31,8086.0,0.96
+SALE-00210,LST-00717,LEAD-00530,south,Riverdale,studio,1,ibuyer,243840,12,6096.0,0.55
+SALE-00211,LST-00718,LEAD-00531,south,Southpark,studio,1,ibuyer,251424,13,6914.16,0.6
+SALE-00212,LST-00723,LEAD-00568,east,Ironbridge,apartment,1,ibuyer,192000,28,4800.0,0.55
+SALE-00213,LST-00724,LEAD-00569,east,Eastfield,apartment,1,ibuyer,196346,29,5399.52,0.6
+SALE-00214,LST-00725,LEAD-00570,east,Ironbridge,apartment,1,marketplace,200741,30,6022.23,0.64
+SALE-00215,LST-00726,LEAD-00571,east,Eastfield,apartment,1,marketplace,205184,31,6668.48,0.69
+SALE-00216,LST-00727,LEAD-00572,east,Ironbridge,apartment,1,marketplace,209676,32,5241.9,0.73
+SALE-00217,LST-00728,LEAD-00573,east,Eastfield,apartment,1,ibuyer,203611,33,5599.3,0.78
+SALE-00218,LST-00729,LEAD-00574,east,Ironbridge,apartment,1,ibuyer,208078,34,6242.34,0.82
+SALE-00219,LST-00730,LEAD-00575,east,Eastfield,apartment,1,marketplace,212594,35,6909.31,0.86
+SALE-00220,LST-00731,LEAD-00576,east,Ironbridge,apartment,1,marketplace,217158,36,5428.95,0.91
+SALE-00221,LST-00732,LEAD-00577,east,Eastfield,apartment,1,marketplace,221771,37,6098.7,0.96
+SALE-00222,LST-00733,LEAD-00578,east,Ironbridge,apartment,1,ibuyer,215222,38,6456.66,0.55
+SALE-00223,LST-00734,LEAD-00579,east,Eastfield,apartment,1,ibuyer,219810,39,7143.82,0.6
+SALE-00224,LST-00735,LEAD-00580,east,Ironbridge,apartment,1,marketplace,224447,40,5611.18,0.64
+SALE-00225,LST-00736,LEAD-00581,east,Eastfield,apartment,1,marketplace,229132,41,6301.13,0.69
+SALE-00226,LST-00737,LEAD-00582,east,Ironbridge,apartment,1,marketplace,233866,42,7015.98,0.73
+SALE-00227,LST-00738,LEAD-00583,east,Eastfield,apartment,1,ibuyer,226833,43,7372.07,0.78
+SALE-00228,LST-00739,LEAD-00584,east,Ironbridge,apartment,1,ibuyer,231542,44,5788.55,0.82
+SALE-00229,LST-00786,LEAD-00615,east,Ironbridge,apartment,2,ibuyer,268800,17,6720.0,0.55
+SALE-00230,LST-00787,LEAD-00616,east,Eastfield,apartment,2,ibuyer,276596,18,7606.39,0.6
+SALE-00231,LST-00788,LEAD-00617,east,Ironbridge,apartment,2,marketplace,284495,19,8534.85,0.64
+SALE-00232,LST-00789,LEAD-00618,east,Eastfield,apartment,2,marketplace,292498,20,9506.18,0.69
+SALE-00233,LST-00790,LEAD-00619,east,Ironbridge,apartment,2,marketplace,300604,21,7515.1,0.73
+SALE-00234,LST-00791,LEAD-00620,east,Eastfield,apartment,2,ibuyer,293524,22,8071.91,0.78
+SALE-00235,LST-00792,LEAD-00621,east,Ironbridge,apartment,2,ibuyer,301578,23,9047.34,0.82
+SALE-00236,LST-00793,LEAD-00622,east,Eastfield,apartment,2,marketplace,309735,24,10066.39,0.86
+SALE-00237,LST-00794,LEAD-00623,east,Ironbridge,apartment,2,marketplace,317995,25,7949.88,0.91
+SALE-00238,LST-00795,LEAD-00624,east,Eastfield,apartment,2,marketplace,326359,26,8974.87,0.96
+SALE-00239,LST-00796,LEAD-00625,east,Ironbridge,apartment,2,ibuyer,318249,27,9547.47,0.55
+SALE-00240,LST-00797,LEAD-00626,east,Eastfield,apartment,2,ibuyer,326561,28,10613.23,0.6
+SALE-00241,LST-00798,LEAD-00627,east,Ironbridge,apartment,2,marketplace,334975,29,8374.38,0.64
+SALE-00242,LST-00799,LEAD-00628,east,Eastfield,apartment,2,marketplace,343493,30,9446.06,0.69
+SALE-00243,LST-00800,LEAD-00629,east,Ironbridge,apartment,2,marketplace,352114,31,10563.42,0.73
+SALE-00244,LST-00801,LEAD-00630,east,Eastfield,apartment,2,ibuyer,342974,32,11146.66,0.78
+SALE-00245,LST-00802,LEAD-00631,east,Ironbridge,apartment,2,ibuyer,351543,33,8788.58,0.82
+SALE-00246,LST-00803,LEAD-00632,east,Eastfield,apartment,2,marketplace,360215,34,9905.91,0.86
+SALE-00247,LST-00804,LEAD-00633,east,Ironbridge,apartment,2,marketplace,368990,35,11069.7,0.91
+SALE-00248,LST-00805,LEAD-00634,east,Eastfield,apartment,2,marketplace,377869,36,12280.74,0.96
+SALE-00249,LST-00806,LEAD-00635,east,Ironbridge,apartment,2,ibuyer,367699,17,9192.48,0.55
+SALE-00250,LST-00820,LEAD-00688,east,Ironbridge,studio,1,ibuyer,144000,41,3600.0,0.55
+SALE-00251,LST-00821,LEAD-00689,east,Eastfield,studio,1,ibuyer,146786,42,4036.62,0.6
+SALE-00252,LST-00822,LEAD-00690,east,Ironbridge,studio,1,marketplace,149598,43,4487.94,0.64
+SALE-00253,LST-00823,LEAD-00691,east,Eastfield,studio,1,marketplace,152438,44,4954.24,0.69
+SALE-00254,LST-00824,LEAD-00692,east,Ironbridge,studio,1,marketplace,155304,45,3882.6,0.73
+SALE-00255,LST-00825,LEAD-00693,east,Eastfield,studio,1,ibuyer,150364,46,4135.01,0.78
+SALE-00256,LST-00826,LEAD-00694,east,Ironbridge,studio,1,ibuyer,153217,47,4596.51,0.82
+SALE-00257,LST-00827,LEAD-00695,east,Eastfield,studio,1,marketplace,156096,48,5073.12,0.86
+SALE-00258,LST-00828,LEAD-00696,east,Ironbridge,studio,1,marketplace,159001,49,3975.03,0.91
+SALE-00259,LST-00829,LEAD-00697,east,Eastfield,studio,1,marketplace,161934,50,4453.19,0.96
+SALE-00260,LST-00830,LEAD-00698,east,Ironbridge,studio,1,ibuyer,156729,51,4701.87,0.55
+SALE-00261,LST-00831,LEAD-00699,east,Eastfield,studio,1,ibuyer,159648,52,5188.56,0.6
+SALE-00262,LST-00832,LEAD-00700,east,Ironbridge,studio,1,marketplace,162593,53,4064.83,0.64
+SALE-00263,LST-00919,LEAD-00723,east,Ironbridge,house,3,ibuyer,384000,32,9600.0,0.55
+SALE-00264,LST-00920,LEAD-00724,east,Eastfield,house,3,ibuyer,392183,33,10785.03,0.6
+SALE-00265,LST-00921,LEAD-00725,east,Ironbridge,house,3,marketplace,400453,34,12013.59,0.64
+SALE-00266,LST-00922,LEAD-00726,east,Eastfield,house,3,marketplace,408809,35,13286.29,0.69
+SALE-00267,LST-00923,LEAD-00727,east,Ironbridge,house,3,marketplace,417252,36,10431.3,0.73
+SALE-00268,LST-00924,LEAD-00728,east,Eastfield,house,3,ibuyer,404702,37,11129.31,0.78
+SALE-00269,LST-00925,LEAD-00729,east,Ironbridge,house,3,ibuyer,413101,38,12393.03,0.82
+SALE-00270,LST-00926,LEAD-00730,east,Eastfield,house,3,marketplace,421587,39,13701.58,0.86
+SALE-00271,LST-00927,LEAD-00731,east,Ironbridge,house,3,marketplace,430158,40,10753.95,0.91
+SALE-00272,LST-00928,LEAD-00732,east,Eastfield,house,3,marketplace,438817,41,12067.47,0.96
+SALE-00273,LST-00929,LEAD-00733,east,Ironbridge,house,3,ibuyer,425404,42,12762.12,0.55
+SALE-00274,LST-00971,LEAD-00756,center,Midtown,studio,1,ibuyer,144000,54,3600.0,0.55
+SALE-00275,LST-00972,LEAD-00757,center,Centro,studio,1,ibuyer,146666,55,4033.32,0.6
+SALE-00276,LST-00973,LEAD-00758,center,Midtown,studio,1,marketplace,149357,56,4480.71,0.64
+SALE-00277,LST-00974,LEAD-00759,center,Centro,studio,1,marketplace,152072,57,4942.34,0.69
+SALE-00278,LST-00975,LEAD-00760,center,Midtown,studio,1,marketplace,154812,58,3870.3,0.73
+SALE-00279,LST-00976,LEAD-00761,center,Centro,studio,1,ibuyer,149774,59,4118.78,0.78
+SALE-00280,LST-00977,LEAD-00762,center,Midtown,studio,1,ibuyer,152501,60,4575.03,0.82
+SALE-00281,LST-00978,LEAD-00763,center,Centro,studio,1,marketplace,155252,61,5045.69,0.86
+SALE-00282,LST-01080,LEAD-00775,center,Midtown,apartment,1,ibuyer,192000,35,4800.0,0.55
+SALE-00283,LST-01081,LEAD-00776,center,Centro,apartment,1,ibuyer,196138,36,5393.8,0.6
+SALE-00284,LST-01082,LEAD-00777,center,Midtown,apartment,1,marketplace,200321,37,6009.63,0.64
+SALE-00285,LST-01083,LEAD-00778,center,Centro,apartment,1,marketplace,204548,38,6647.81,0.69
+SALE-00286,LST-01084,LEAD-00779,center,Midtown,apartment,1,marketplace,208820,39,5220.5,0.73
+SALE-00287,LST-01085,LEAD-00780,center,Centro,apartment,1,ibuyer,202584,40,5571.06,0.78
+SALE-00288,LST-01086,LEAD-00781,center,Midtown,apartment,1,ibuyer,206833,41,6204.99,0.82
+SALE-00289,LST-01087,LEAD-00782,center,Centro,apartment,1,marketplace,211126,42,6861.6,0.86
+SALE-00290,LST-01088,LEAD-00783,center,Midtown,apartment,1,marketplace,215463,43,5386.58,0.91
+SALE-00291,LST-01089,LEAD-00784,center,Centro,apartment,1,marketplace,219845,44,6045.74,0.96
+SALE-00292,LST-01090,LEAD-00785,center,Midtown,apartment,1,ibuyer,213168,45,6395.04,0.55
+SALE-00293,LST-01091,LEAD-00786,center,Centro,apartment,1,ibuyer,217527,46,7069.63,0.6
+SALE-00294,LST-01092,LEAD-00787,center,Midtown,apartment,1,marketplace,221930,47,5548.25,0.64
+SALE-00295,LST-01093,LEAD-00788,center,Centro,apartment,1,marketplace,226378,48,6225.4,0.69
+SALE-00296,LST-01094,LEAD-00789,center,Midtown,apartment,1,marketplace,230870,49,6926.1,0.73
+SALE-00297,LST-01095,LEAD-00790,center,Centro,apartment,1,ibuyer,223752,50,7271.94,0.78
+SALE-00298,LST-01149,LEAD-00820,center,Midtown,apartment,2,ibuyer,268800,43,6720.0,0.55
+SALE-00299,LST-01150,LEAD-00821,center,Centro,apartment,2,ibuyer,273562,44,7522.95,0.6
+SALE-00300,LST-01151,LEAD-00822,center,Midtown,apartment,2,marketplace,278365,45,8350.95,0.64
+SALE-00301,LST-01152,LEAD-00823,center,Centro,apartment,2,marketplace,283208,46,9204.26,0.69
+SALE-00302,LST-01153,LEAD-00824,center,Midtown,apartment,2,marketplace,288092,47,7202.3,0.73
+SALE-00303,LST-01154,LEAD-00825,center,Centro,apartment,2,ibuyer,278510,48,7659.02,0.78
+SALE-00304,LST-01155,LEAD-00826,center,Midtown,apartment,2,ibuyer,283373,49,8501.19,0.82
+SALE-00305,LST-01156,LEAD-00827,center,Centro,apartment,2,marketplace,288277,50,9369.0,0.86
+SALE-00306,LST-01157,LEAD-00828,center,Midtown,apartment,2,marketplace,293222,51,7330.55,0.91
+SALE-00307,LST-01158,LEAD-00829,center,Centro,apartment,2,marketplace,298207,52,8200.69,0.96
+SALE-00308,LST-01159,LEAD-00830,center,Midtown,apartment,2,ibuyer,288220,53,8646.6,0.55
+SALE-00309,LST-01160,LEAD-00831,center,Centro,apartment,2,ibuyer,293185,54,9528.51,0.6
+SALE-00310,LST-01234,LEAD-00857,center,Midtown,house,2,ibuyer,336000,47,8400.0,0.55
+SALE-00311,LST-01235,LEAD-00858,center,Centro,house,2,ibuyer,341698,48,9396.69,0.6
+SALE-00312,LST-01236,LEAD-00859,center,Midtown,house,2,marketplace,347441,49,10423.23,0.64
+SALE-00313,LST-01237,LEAD-00860,center,Centro,house,2,marketplace,353230,50,11479.98,0.69
+SALE-00314,LST-01238,LEAD-00861,center,Midtown,house,2,marketplace,359064,51,8976.6,0.73
+SALE-00315,LST-01239,LEAD-00862,center,Centro,house,2,ibuyer,346876,52,9539.09,0.78
+SALE-00316,LST-01240,LEAD-00863,center,Midtown,house,2,ibuyer,352688,53,10580.64,0.82
+SALE-00317,LST-01241,LEAD-00864,center,Centro,house,2,marketplace,358544,54,11652.68,0.86
+SALE-00318,LST-01242,LEAD-00865,center,Midtown,house,2,marketplace,364446,55,9111.15,0.91
+SALE-00319,LST-01243,LEAD-00866,center,Centro,house,2,marketplace,370394,56,10185.84,0.96
+SALE-00320,LST-01244,LEAD-00867,center,Midtown,house,2,ibuyer,357753,57,10732.59,0.55
