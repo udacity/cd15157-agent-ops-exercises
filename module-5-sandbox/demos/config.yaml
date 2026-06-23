@@ -1,0 +1,19 @@
+agent:
+  name: RealThor
+  version: "0.5.0"
+
+model:
+  name: gpt-4o-mini
+  temperature: 0.0
+
+sandbox:
+  timeout: 30
+
+paths:
+  prompt_bespoke: prompts/system_prompt_v5_bespoke.md
+  prompt_analyst: prompts/system_prompt_v5_analyst.md
+  prompt_sandbox: prompts/system_prompt_v5_sandbox.md
+  analyst_prompt: prompts/analyst_prompt.md
+  demand_data: data/demand_signals.csv
+  supply_data: data/supply_snapshot.csv
+  listings_data: data/listings.csv
