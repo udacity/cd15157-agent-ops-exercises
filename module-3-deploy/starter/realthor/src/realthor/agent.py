@@ -1,11 +1,3 @@
-"""
-RealThor agent — Module 3 exercise skeleton.
-
-Implement build_agent() and the analyze command so that:
-    uv run realthor analyze --region west --property-type apartment --bedrooms 2
-calls the agent and prints a recommendation.
-"""
-
 from dotenv import load_dotenv
 import click
 import pandas as pd

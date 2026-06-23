@@ -1,5 +1,3 @@
-"""RealThor agent — Module 3 solution (build_agent + CLI + __main__)."""
-
 from dotenv import load_dotenv
 import click
 import pandas as pd
