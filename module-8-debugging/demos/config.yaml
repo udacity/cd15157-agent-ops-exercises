@@ -1,0 +1,20 @@
+agent:
+  name: RealThor
+  version: "0.8.0"
+
+model:
+  name: gpt-4o-mini
+  # Non-zero so reruns of the same query can diverge — the point of demo_01.
+  temperature: 0.7
+
+debug:
+  state_db: state.db
+
+logging:
+  log_dir: logs
+
+paths:
+  prompt: prompts/system_prompt_v8.md
+  demand_data: data/demand_signals.csv
+  supply_data: data/supply_snapshot.csv
+  velocity_data: data/listing_velocity.csv

@@ -1,0 +1,16 @@
+7a4c2e9 feat: add replay command reconstructing run context from checkpoints + logs
+b8d1f60 feat: persist agent state to SqliteSaver keyed by run_id; add debug config + m08 evals
+c3d9f1a feat: add monitoring report command and update eval scenarios to 85 rows
+1e8b2a4 feat: add monitor.py with RunRecord, MonitoringMetrics, and run logging
+2b1f8a3 feat: add HITL policy middleware and channel recommendation tool
+9c4e1d7 feat: add policies.py with evaluate_channel_policy and unit tests
+e6d3b7f feat: add sandbox execution and analyst sub-agent for analytical queries
+d5c2a9e refactor: split agent.py into app.py and agents.py
+f4e2a8d feat: add guardrails middleware and expand to 9-dataset model
+b3f1a9c feat: add RealThor v0.3 as agent CLI
+a8f3d21 eval: update evaluation to structured output and expand golden dataset to 20 scenarios
+5c1e9b4 feat: upgrade realthor to v0.2 with structured output and LangChain
+7d2e4f1 eval: add evaluation suite and compare prompt versions
+3f9a1b2 feat: add realthor v0.1 notebook with versioned prompt
+c4e72d0 data: add demand and supply datasets
+a1b3c9e scaffold: initialize realthor with uv
