@@ -1,0 +1,24 @@
+agent:
+  name: RealThor
+  version: "0.9.0"
+
+model:
+  name: gpt-4o-mini
+  # Non-zero: the recommendation can vary run to run — the non-determinism that makes a
+  # single run worth tracing rather than just re-running.
+  temperature: 0.7
+
+debug:
+  state_db: state.db
+
+tracing:
+  enabled: true
+
+logging:
+  log_dir: logs
+
+paths:
+  prompt: prompts/system_prompt_v9.md
+  demand_data: data/demand_signals.csv
+  supply_data: data/supply_snapshot.csv
+  velocity_data: data/listing_velocity.csv
