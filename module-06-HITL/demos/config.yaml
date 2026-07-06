@@ -1,0 +1,15 @@
+agent:
+  name: RealThor
+  version: "0.6.0"
+
+model:
+  name: gpt-4o-mini
+  temperature: 0.0
+
+hitl:
+  ibuyer_threshold: 500000
+
+paths:
+  prompt: prompts/system_prompt_v6.md
+  supply_opportunities_data: data/supply_opportunities.csv
+  channel_recommendations: data/channel_recommendations.jsonl
