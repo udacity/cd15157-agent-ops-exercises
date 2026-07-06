@@ -1,0 +1,4 @@
+user_id,name,role,region_access,active
+analyst_001,Maria Santos,analyst,all,True
+broker_west_001,Emma Rossi,broker,west,True
+broker_north_001,Yuki Tanaka,broker,north,True

@@ -1,0 +1,17 @@
+agent:
+  name: RealThor
+  version: "0.10.0-demo"
+
+model:
+  name: gpt-4o-mini
+  temperature: 0.0
+
+tracing:
+  enabled: true
+
+paths:
+  prompt: prompts/system_prompt.md
+  demand_data: data/demand.csv
+  users_data: data/users.csv
+  app_db: realthor.db      # application state — users + sessions
+  state_db: state.db       # LangGraph checkpointer — agent state, keyed by thread_id

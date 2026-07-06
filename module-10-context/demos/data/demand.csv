@@ -1,0 +1,5 @@
+region,property_type,bedrooms,demand_score,supply_score
+west,apartment,2,0.82,0.41
+west,studio,1,0.69,0.55
+north,apartment,2,0.54,0.80
+north,house,3,0.37,0.91
