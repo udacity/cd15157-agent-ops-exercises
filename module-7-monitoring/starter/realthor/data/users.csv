@@ -1,0 +1,15 @@
+user_id,name,role,region_access,active
+analyst_001,Maria Santos,analyst,all,True
+analyst_002,James Chen,analyst,all,True
+analyst_003,Sofia Müller,analyst,all,True
+analyst_004,Karim Hassan,analyst,all,True
+broker_west_001,Emma Rossi,broker,west,True
+broker_west_002,Lucas Neves,broker,west,True
+broker_north_001,Yuki Tanaka,broker,north,True
+broker_south_001,Ana Lima,broker,south,True
+broker_east_001,Dmitri Volkov,broker,east,True
+broker_east_002,Priya Patel,broker,east,True
+broker_center_001,Mohamed Ali,broker,center,True
+broker_multi_001,Sarah Connor,broker,west|south,True
+broker_multi_002,Carlos Silva,broker,north|east,True
+broker_multi_003,Nina Reeves,broker,east|center,True
