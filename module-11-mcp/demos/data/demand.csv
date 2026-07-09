@@ -1,0 +1,4 @@
+region,property_type,bedrooms,demand_score,search_volume
+west,apartment,2,0.91,1240
+north,apartment,2,0.74,880
+east,studio,1,0.65,510
