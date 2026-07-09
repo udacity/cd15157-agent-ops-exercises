@@ -6,7 +6,7 @@ Listing Supply Intelligence agent for Ciudaty PropTech — v0.1, the reproducibl
 
 ```bash
 uv sync
-cp .env.example .env   # add your OPENAI_API_KEY
+cp .env.example .env   # set LLM_PROVIDER + its key (Vocareum by default)
 ```
 
 Then launch Jupyter:
@@ -48,7 +48,7 @@ realthor/
 ├── pyproject.toml          ← deps: openai, pandas, python-dotenv, ipykernel
 ├── uv.lock                 ← locked dependency versions
 ├── .python-version         ← Python 3.12
-├── .env.example            ← copy to .env, add OPENAI_API_KEY
+├── .env.example            ← copy to .env, set LLM_PROVIDER + its key
 ├── data/
 │   ├── demand_signals.csv  ← demand index per region/type/bedrooms
 │   └── supply_snapshot.csv ← active listing counts per segment

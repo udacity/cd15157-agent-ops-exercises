@@ -1,6 +1,6 @@
 # Exercise: Versioning RealThor v0.1
 
-**Module 1 — Agentic System Reproducibility**
+**Module 1 — Versioning an Agentic System**
 **Estimated Time:** 15 minutes
 
 ---
@@ -26,7 +26,7 @@ starter/
 └── realthor_v01.ipynb     ← working notebook with inline prompt (refactor this)
 ```
 
-> **Before you start:** copy `.env.example` to `.env` and add your `OPENAI_API_KEY`.
+> **Before you start:** copy `.env.example` to `.env`. RealThor defaults to Vocareum: keep `LLM_PROVIDER=vocareum` and paste your Vocareum key from the Udacity workspace. To run against OpenAI directly, set `LLM_PROVIDER=openai` and add your `OPENAI_API_KEY`.
 
 ---
 
@@ -37,7 +37,7 @@ starter/
 From inside this folder, create a new Python project called `realthor`:
 
 ```bash
-uv init realthor
+uv init realthor --python 3.12
 cd realthor
 ```
 
@@ -95,10 +95,9 @@ Run the notebook to verify it still produces a recommendation.
 
 ### Task 5 — Version with git
 
-Initialize a git repository inside `realthor/` and make three commits:
+`uv init` already created the git repository in Task 1, so you do not run `git init`. Make three commits:
 
 ```bash
-git init
 git add pyproject.toml uv.lock .python-version
 git commit -m "scaffold: initialize realthor with uv"
 
