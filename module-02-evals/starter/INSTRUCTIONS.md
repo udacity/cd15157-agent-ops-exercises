@@ -7,7 +7,7 @@
 
 ## Overview
 
-The `realthor/` project is already set up — it's the Module 1 solution upgraded to v0.2. RealThor now returns **structured output** (a Pydantic object instead of free-form text), the prompts are versioned, and the golden evaluation dataset is pre-placed at `evaluation/eval_golden_dataset.csv`.
+The `realthor/` project is already set up — it's the previous module's solution upgraded to v0.2. RealThor now returns **structured output** (a Pydantic object instead of free-form text), the prompts are versioned, and the golden evaluation dataset is pre-placed at `evaluation/eval_golden_dataset.csv`.
 
 Your goal is to answer:
 
@@ -40,7 +40,7 @@ starter/
     └── realthor_v02.ipynb          ← v0.2 reference (structured output)
 ```
 
-> **Before you start:** copy `.env.example` to `.env` and add your `OPENAI_API_KEY`.
+> **Before you start:** copy `.env.example` to `.env`. RealThor defaults to Vocareum: keep `LLM_PROVIDER=vocareum` and paste your Vocareum key from the Udacity workspace. To run against OpenAI directly, set `LLM_PROVIDER=openai` and add your `OPENAI_API_KEY`.
 >
 > Run the environment: `cd realthor && uv run jupyter notebook`
 
