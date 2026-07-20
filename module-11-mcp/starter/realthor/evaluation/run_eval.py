@@ -194,7 +194,7 @@ def run_eval(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="RealThor v0.6 evaluation")
     parser.add_argument("--complete", action="store_true", help="Run all scenarios")
-    parser.add_argument("--baseline", help="Filter to a version_baseline (e.g. m02)")
+    parser.add_argument("--baseline", help="Filter to a version_baseline (e.g. v02)")
     parser.add_argument("--type", dest="scenario_type", help="Filter by type (e.g. guardrail_input)")
     parser.add_argument("--scenarios", dest="scenario_ids", nargs="+", help="Run specific scenario IDs (e.g. T005 T012 O002)")
     args = parser.parse_args()

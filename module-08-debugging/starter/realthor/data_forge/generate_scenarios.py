@@ -50,7 +50,7 @@ def _score_lookup(demand: pd.DataFrame, supply: pd.DataFrame, region: str,
     return d_score, s_score
 
 
-def _build_normal_m02(demand, supply):
+def _build_normal_v02(demand, supply):
     rows = []
     for sid, region, pt, beds, priority, action in M02_GOLDEN:
         d_score, s_score = _score_lookup(demand, supply, region, pt, beds)
@@ -61,7 +61,7 @@ def _build_normal_m02(demand, supply):
         must_not = MUST_NOT_CONTAIN_BY_PRIORITY[priority]
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m02",
+            "version_baseline": "v02",
             "type": "normal",
             "user_id": "analyst_001",
             "region": region,
@@ -76,7 +76,7 @@ def _build_normal_m02(demand, supply):
     return rows
 
 
-def _build_normal_m04():
+def _build_normal_v04():
     """15 new normal pass scenarios: 5 broker own-region + 10 analyst with new tools."""
     rows = []
 
@@ -91,7 +91,7 @@ def _build_normal_m04():
     for sid, uid, region, pt, beds, priority, action in broker_cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": "normal",
             "user_id": uid,
             "region": region,
@@ -130,7 +130,7 @@ def _build_normal_m04():
     for sid, uid, region, query, must_contain, must_not in analyst_cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": "normal",
             "user_id": uid,
             "region": region,
@@ -225,7 +225,7 @@ def _build_guardrail_input():
     for sid, uid, sc_type, query, result, reason, must_contain, must_not in cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": sc_type,
             "user_id": uid,
             "region": "",
@@ -303,7 +303,7 @@ def _build_guardrail_tool():
     for sid, uid, sc_type, query, result, reason, must_contain, must_not in cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": sc_type,
             "user_id": uid,
             "region": "",
@@ -364,7 +364,7 @@ def _build_guardrail_output():
     for sid, uid, sc_type, query, result, reason, must_contain, must_not in cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": sc_type,
             "user_id": uid,
             "region": "",
@@ -380,7 +380,7 @@ def _build_guardrail_output():
     return rows
 
 
-def _build_normal_m07():
+def _build_normal_v07():
     """5 regression scenarios for M07 — verify monitoring instrumentation didn't break queries."""
     cases = [
         ("MON001", "analyst_001", "west",   "apartment", 2,
@@ -403,7 +403,7 @@ def _build_normal_m07():
     for sid, uid, region, pt, beds, query, must_contain, must_not in cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m07",
+            "version_baseline": "v07",
             "type": "normal",
             "user_id": uid,
             "region": region,
@@ -418,7 +418,7 @@ def _build_normal_m07():
     return rows
 
 
-def _build_normal_m08():
+def _build_normal_v08():
     """5 regression scenarios for M08 — verify the SqliteSaver swap and thread_id=run_id
     wiring didn't change existing behavior. Replay itself reads from persisted state, so
     these confirm the agent still answers correctly while every run is now checkpointed."""
@@ -443,7 +443,7 @@ def _build_normal_m08():
     for sid, uid, region, pt, beds, query, must_contain, must_not in cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m08",
+            "version_baseline": "v08",
             "type": "normal",
             "user_id": uid,
             "region": region,
@@ -466,13 +466,13 @@ def main():
     supply = pd.read_csv(DATA_DIR / "supply_snapshot.csv")
 
     all_rows = (
-        _build_normal_m02(demand, supply)
-        + _build_normal_m04()
+        _build_normal_v02(demand, supply)
+        + _build_normal_v04()
         + _build_guardrail_input()
         + _build_guardrail_tool()
         + _build_guardrail_output()
-        + _build_normal_m07()
-        + _build_normal_m08()
+        + _build_normal_v07()
+        + _build_normal_v08()
     )
 
     df = pd.DataFrame(all_rows, columns=[

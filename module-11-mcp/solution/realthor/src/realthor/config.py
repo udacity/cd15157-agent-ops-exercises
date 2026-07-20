@@ -22,33 +22,6 @@ def resolve_paths(cfg: dict, config_path: str) -> dict:
     return cfg
 
 
-def build_context(
-    demand: pd.DataFrame,
-    supply: pd.DataFrame,
-    region: str,
-    property_type: str,
-    bedrooms: int,
-) -> str:
-    d = demand[
-        (demand["region"] == region)
-        & (demand["property_type"] == property_type)
-        & (demand["bedrooms"] == bedrooms)
-    ]
-    s = supply[
-        (supply["region"] == region)
-        & (supply["property_type"] == property_type)
-        & (supply["bedrooms"] == bedrooms)
-    ]
-    if d.empty or s.empty:
-        return "No data available for the requested segment."
-    return (
-        f"Region: {region}\n"
-        f"Property: {bedrooms}-bedroom {property_type}\n\n"
-        f"Demand signals:\n{d.to_string(index=False)}\n\n"
-        f"Supply snapshot:\n{s.to_string(index=False)}"
-    )
-
-
 VOCAREUM_BASE_URL = "https://openai.vocareum.com/v1"
 
 

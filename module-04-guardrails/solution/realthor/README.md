@@ -8,7 +8,7 @@ Listing Supply Intelligence agent for the Ciudaty PropTech. Adds a three-layer g
 
 ```bash
 uv sync
-cp .env.example .env   # add your OPENAI_API_KEY
+cp .env.example .env   # set LLM_PROVIDER + its key (Vocareum by default)
 ```
 
 ---
@@ -125,7 +125,7 @@ This recreates all 9 CSVs + `eval_scenarios.csv` and validates all 18 constraint
 - All non-empty `user_id` values reference rows in `users.csv`
 - Every `blocked` row has a non-empty `expected_reason`
 - Every `normal/pass` row has a non-empty `must_contain` criterion
-- Type distribution within bounds: 20 m02 regression rows, ≥10 per guardrail type
+- Type distribution within bounds: 20 v02 regression rows, ≥10 per guardrail type
 
 Run data integrity checks:
 
@@ -194,18 +194,18 @@ Identity is resolved from `users.csv` via `--user <user_id>`. The role and regio
 
 | Type | Baseline | Count | Description |
 |---|---|---|---|
-| `normal` | `m02` | 20 | M02 regression cases — all segments, analyst persona |
-| `normal` | `m04` | 15 | Broker own-region queries (5) + analyst using new data tools (10), all pass |
-| `guardrail_input` | `m04` | 20 | 6 input policies; 5 tested with 4-variation groups (demographic, persona, profanity, topic, geography) |
-| `guardrail_tool` | `m04` | 15 | Region access, sensitive fields, action restriction, mutation |
-| `guardrail_output` | `m04` | 10 | Sensitive phrases, toxic output, geography leak |
+| `normal` | `v02` | 20 | M02 regression cases — all segments, analyst persona |
+| `normal` | `v04` | 15 | Broker own-region queries (5) + analyst using new data tools (10), all pass |
+| `guardrail_input` | `v04` | 20 | 6 input policies; 5 tested with 4-variation groups (demographic, persona, profanity, topic, geography) |
+| `guardrail_tool` | `v04` | 15 | Region access, sensitive fields, action restriction, mutation |
+| `guardrail_output` | `v04` | 10 | Sensitive phrases, toxic output, geography leak |
 
 **CLI flags:**
 
 ```bash
 uv run python evaluation/run_eval.py              # default: 10 scenarios, evenly by type
 uv run python evaluation/run_eval.py --complete   # all 80 scenarios
-uv run python evaluation/run_eval.py --baseline m02  # M02 regression gate (20 scenarios)
+uv run python evaluation/run_eval.py --baseline v02  # M02 regression gate (20 scenarios)
 uv run python evaluation/run_eval.py --type guardrail_input
 uv run python evaluation/run_eval.py --scenarios G006 T005 O004  # run specific scenario IDs
 ```
@@ -363,7 +363,7 @@ exit
 
 ### Secrets: local vs production
 
-Locally, `compose.yaml` reads `env_file: .env` and injects `OPENAI_API_KEY` into the container. The `.dockerignore` ensures `.env` is never copied into the image.
+Locally, `compose.yaml` reads `env_file: .env`, injecting the whole `.env` into the container: `LLM_PROVIDER` plus whichever provider key it selects (`OPENAI_API_KEY` or `VOCAREUM_API_KEY`). So `docker compose run` uses the same provider you set locally, Vocareum included, with no compose change. The `.dockerignore` ensures `.env` is never copied into the image.
 
 In production, replace `env_file` with your platform's secret injection mechanism:
 
@@ -374,7 +374,7 @@ In production, replace `env_file` with your platform's secret injection mechanis
 | AWS ECS | Secrets Manager ARN in the task definition |
 | HashiCorp Vault | Vault agent sidecar or SDK call at startup |
 
-The app reads `os.getenv("OPENAI_API_KEY")` in all cases — `load_dotenv()` falls back to environment variables automatically.
+The app reads whichever provider key `LLM_PROVIDER` selects, via `os.getenv`, in all cases; `load_dotenv()` falls back to environment variables automatically.
 
 ### Tagging images for a registry
 

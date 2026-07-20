@@ -3,9 +3,8 @@ import pandas as pd
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
-from langchain_openai import ChatOpenAI
 
-from realthor.config import load_config, load_prompt, resolve_paths
+from realthor.config import load_config, load_prompt, make_chat_model, resolve_paths
 from realthor.guardrails import UserContext, GUEST_CONTEXT, make_guardrails
 from realthor.tools import make_tools
 
@@ -30,10 +29,7 @@ def _resolve_user(user_id: str, users_path: str) -> UserContext:
 
 def build_agent(config_path: str = "config.yaml"):
     cfg = resolve_paths(load_config(config_path), config_path)
-    model = ChatOpenAI(
-        model=cfg["model"]["name"],
-        temperature=cfg["model"]["temperature"],
-    )
+    model = make_chat_model(cfg)
     system_prompt = load_prompt(cfg["paths"]["prompt"])
     demand = pd.read_csv(cfg["paths"]["demand_data"])
     supply = pd.read_csv(cfg["paths"]["supply_data"])

@@ -1,24 +1,11 @@
-"""M06 demo 01 — channel recommendations without any policy gate.
-
-The agent can submit any channel recommendation immediately, including high-value
-iBuyer acquisitions that commit significant capital. No human oversight.
-
-Cases:
-  --case marketplace    Recommend marketplace for a standard opportunity (no issue)
-  --case ibuyer-small   Recommend iBuyer for a low-value opportunity (fine, below threshold)
-  --case ibuyer-large   Recommend iBuyer for OPP-00015 ($610k) — executes immediately, no approval
-  --case all            Run all three cases in sequence (default)
-"""
-
 import pathlib
 
 import click
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
-from langchain_openai import ChatOpenAI
 
-from realthor.config import load_config, resolve_paths
+from realthor.config import load_config, make_chat_model, resolve_paths
 from realthor.tools import make_tools
 
 load_dotenv()
@@ -45,10 +32,7 @@ CASES = {
 
 
 def _build_agent(cfg: dict):
-    model = ChatOpenAI(
-        model=cfg["model"]["name"],
-        temperature=cfg["model"]["temperature"],
-    )
+    model = make_chat_model(cfg)
     with open(cfg["paths"]["prompt"]) as f:
         system_prompt = f.read()
     tools = make_tools(cfg)

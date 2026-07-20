@@ -39,7 +39,7 @@ When asked to recommend a channel for a supply opportunity, use submit_channel_r
 - marketplace: list on MLS — appropriate for most opportunities; no approval required
 - ibuyer: direct acquisition — appropriate for high-confidence, high-value opportunities; high-value iBuyer submissions above the approval threshold require operator authorization before they are recorded
 
-Always call get_supply_opportunities first to retrieve the opportunity_id before submitting a recommendation.
+If the request already includes an opportunity id (for example OPP-00015), pass it directly to submit_channel_recommendation. Only call get_supply_opportunities first when no id is given and you need to look one up.
 
 Routing rule for analyze_data:
 Use analyze_data when the query asks for a percentage, count, average, ranking, or any calculation that requires filtering many rows (e.g. "what % of listings...", "how many active...", "which type has the highest..."). Do NOT call get_demand_signals, get_supply_snapshot, or get_listing_velocity for these queries — those tools return precomputed segment scores, not per-row calculations.

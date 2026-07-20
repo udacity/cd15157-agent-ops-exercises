@@ -18,9 +18,8 @@ from langchain.agents import create_agent
 from langchain.agents.middleware import HostExecutionPolicy, ShellToolMiddleware
 from langchain_core.messages import HumanMessage
 from langchain_core.tools import tool
-from langchain_openai import ChatOpenAI
 
-from realthor.config import load_config, resolve_paths
+from realthor.config import load_config, make_chat_model, resolve_paths
 from realthor.tools import make_tools
 
 load_dotenv()
@@ -30,10 +29,7 @@ EVAL_CASES_PATH = pathlib.Path(__file__).parent / "eval_cases.json"
 
 
 def _build_agent(cfg: dict):
-    model = ChatOpenAI(
-        model=cfg["model"]["name"],
-        temperature=cfg["model"]["temperature"],
-    )
+    model = make_chat_model(cfg)
 
     data_dir = pathlib.Path(cfg["paths"]["demand_data"]).parent
 
@@ -66,7 +62,7 @@ def _build_agent(cfg: dict):
     listings = pd.read_csv(cfg["paths"]["listings_data"])
     bespoke_tools = make_tools(demand, supply, listings)
 
-    with open(cfg["paths"]["prompt_demo_b"]) as f:
+    with open(cfg["paths"]["prompt_analyst"]) as f:
         realthor_prompt = f.read()
 
     return create_agent(

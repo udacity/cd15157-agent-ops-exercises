@@ -1,15 +1,3 @@
-"""Demo 1 — Logs and state aren't enough.
-
-RealThor already logs every run and can replay one from persisted state (M07-M08). Run
-the North iBuyer question, then look at what those two artifacts actually show: the log
-line says what happened and how it ended; the replay restores the tool trajectory and the
-values each tool returned. Neither records *why* the model weighted margin over demand —
-the reasoning path between the tool results and the decision. That gap is what tracing
-closes in demo_02.
-
-    uv run python demo_01.py --case all
-"""
-
 import json
 import uuid
 from datetime import datetime, timezone

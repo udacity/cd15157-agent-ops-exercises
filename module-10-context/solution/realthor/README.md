@@ -3,7 +3,7 @@
 Listing Supply Intelligence agent for the Ciudaty PropTech. RealThor is now a **multi-user
 application**: callers **log in** with a password (no more `--user` impersonation), work
 inside **owned, resumable sessions**, and every run's agent state is keyed to identity. The
-isolation the model needs is not a smarter prompt — it is state scoped to *who* is asking.
+isolation the model needs is not a smarter prompt: it is state scoped to *who* is asking.
 
 Logs (v0.7) said a run happened; replay (v0.8) restored its state; traces (v0.9) showed the
 reasoning path. v0.10 makes sure the *right* state reaches the *right* caller and no other —
@@ -16,7 +16,7 @@ that isolation is visible in Langfuse, not just asserted.
 
 ```bash
 uv sync
-cp .env.example .env   # add OPENAI_API_KEY and, for tracing, the LANGFUSE_* keys
+cp .env.example .env   # set LLM_PROVIDER + its key (Vocareum by default); for tracing add the LANGFUSE_* keys
 ```
 
 The application database (`realthor.db`) is seeded automatically on first run from
@@ -51,7 +51,7 @@ RealThor v0.10 turns the v0.9 single-shot CLI into a real application:
   a sub-agent call can't widen the caller's scope — context is threaded through every hop.
 - **`config.yaml`**: `paths.app_db: realthor.db`; prompt bumped to `system_prompt_v10.md`;
   version `0.10.0`.
-- **6 M10 eval scenarios** (101 total) — 4 normal regressions + 2 region-scope blocks,
+- **6 context-isolation eval scenarios** (101 total) — 4 normal regressions + 2 region-scope blocks,
   resolving identity from the database.
 
 ### The two databases
@@ -109,7 +109,7 @@ uv run realthor
 ```
 
 A new session gets a human-readable title from your first message; resume lists your own
-sessions (title · message count · last active) and continues the thread — it remembers. A turn
+sessions (title · message count · last active) and continues the thread; it remembers. A turn
 that triggers an approval-gated tool (e.g. `submit_channel_recommendation`) prompts the operator
 to **approve or reject** inline and resumes on the spot — no dangling interrupt.
 
@@ -127,7 +127,7 @@ runs untraced (no error).
 
 ## Langfuse setup
 
-The backend is an env-var choice — local vs cloud is a `.env` change, not code.
+The backend is an env-var choice: local vs cloud is a `.env` change, not code.
 
 **Local (self-hosted, default)** — Langfuse's official Docker stack, pinned to a release:
 
@@ -232,7 +232,7 @@ Expected:
 
 ```
 === Running unit tests ===
-... 122 passed
+... 120 passed
 
 === Checking data integrity ===
 18 passed

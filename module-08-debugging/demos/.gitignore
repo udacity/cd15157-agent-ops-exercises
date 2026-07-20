@@ -1,5 +1,5 @@
 /state.db
-/last_run_id.txt
+/last_runs.json
 /logs/runs.jsonl
 .venv
 __pycache__/

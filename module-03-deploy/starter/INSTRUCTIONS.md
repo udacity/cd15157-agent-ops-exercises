@@ -7,7 +7,7 @@
 
 ## Overview
 
-The `realthor/` project is already set up — it's the Module 2 solution upgraded to v0.3, using `src/` layout and LangChain. The infrastructure is pre-provided: `config.py`, `tools.py`, `config.yaml`, the versioned prompt, and all data files.
+The `realthor/` project is already set up — it's the previous module's solution upgraded to v0.3, using `src/` layout and LangChain. The infrastructure is pre-provided: `config.py`, `tools.py`, `config.yaml`, the versioned prompt, and all data files.
 
 Your job is to implement `src/realthor/agent.py` — the file that wires everything together. It has two responsibilities:
 
@@ -53,12 +53,12 @@ starter/
     │   └── test_tools.py    ← unit tests (pre-provided)
     └── src/
         └── realthor/
-            ├── config.py    ← load_config, resolve_paths, build_context (pre-provided)
+            ├── config.py    ← load_config, resolve_paths, load_prompt (pre-provided)
             ├── tools.py     ← make_tools(demand, supply) (pre-provided)
             └── agent.py     ← skeleton — implement this
 ```
 
-> **Before you start:** copy `.env.example` to `.env` and add your `OPENAI_API_KEY`.
+> **Before you start:** copy `.env.example` to `.env`. RealThor defaults to Vocareum: keep `LLM_PROVIDER=vocareum` and paste your Vocareum key from the Udacity workspace. To run against OpenAI directly, set `LLM_PROVIDER=openai` and add your `OPENAI_API_KEY`.
 >
 > Then: `cd realthor && uv sync`
 

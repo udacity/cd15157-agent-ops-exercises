@@ -85,17 +85,22 @@ def test_compute_metrics_tool_call_counts():
     assert metrics.hitl_rejection_count == 1
 
 
-def test_generate_report_creates_markdown_and_json(tmp_path):
+def test_generate_report_creates_output_files(tmp_path):
     records = load_run_records(FIXTURES / "sample_runs.jsonl")
     metrics = compute_metrics(records)
     generate_report(metrics, tmp_path)
     md_path = tmp_path / "monitoring_report.md"
     json_path = tmp_path / "monitoring_report.json"
+    html_path = tmp_path / "monitoring_report.html"
     assert md_path.exists()
     assert json_path.exists()
-    content = md_path.read_text()
-    assert "Total runs" in content
-    assert "Success rate" in content
+    assert html_path.exists()
+    md = md_path.read_text()
+    assert "Total runs" in md
+    assert "Success rate" in md
     data = json.loads(json_path.read_text())
     assert data["total_runs"] == 10
     assert "tool_call_counts" in data
+    html = html_path.read_text()
+    assert "RealThor Monitoring Report" in html
+    assert "10" in html

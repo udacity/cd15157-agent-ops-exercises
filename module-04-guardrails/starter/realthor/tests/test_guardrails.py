@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
 from typing import Any
 from unittest.mock import MagicMock
 
@@ -10,7 +9,10 @@ from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 
 from realthor.guardrails import (
     GUEST_CONTEXT,
-    RealThorGuardrails,
+    TERMINAL_ACCESS_REASONS,
+    InputGuardrails,
+    OutputGuardrails,
+    ToolGuardrails,
     UserContext,
     _redact_sensitive_fields,
 )
@@ -47,7 +49,7 @@ BROKER_WEST = UserContext(user_id="broker_west_001", role="broker", region_acces
 # ---------------------------------------------------------------------------
 
 class TestBeforeAgent:
-    grd = RealThorGuardrails()
+    grd = InputGuardrails()
 
     def test_passes_normal_query(self):
         result = self.grd.before_agent(_state("What's the listing priority for west/apartment/2?"), _runtime())
@@ -106,11 +108,11 @@ class TestBeforeAgent:
 
 
 # ---------------------------------------------------------------------------
-# Layer 2 — Tool/action guardrail
+# Layer 2 — Tool/access guardrail (wrap_tool_call)
 # ---------------------------------------------------------------------------
 
 class TestWrapToolCall:
-    grd = RealThorGuardrails()
+    grd = ToolGuardrails()
 
     def _handler(self, return_value: str = "tool result"):
         return lambda req: ToolMessage(content=return_value, name="test_tool", tool_call_id="test_call_id")
@@ -147,6 +149,7 @@ class TestWrapToolCall:
     def test_blocks_broker_wrong_region(self):
         req = _tool_request("get_demand_signals", {"region": "north"}, BROKER_WEST)
         result = self.grd.wrap_tool_call(req, self._handler())
+        assert isinstance(result, ToolMessage)
         payload = json.loads(result.content)
         assert payload["reason"] == "region_access"
 
@@ -158,6 +161,7 @@ class TestWrapToolCall:
     def test_blocks_guest_any_region(self):
         req = _tool_request("get_demand_signals", {"region": "east"}, GUEST_CONTEXT)
         result = self.grd.wrap_tool_call(req, self._handler())
+        assert isinstance(result, ToolMessage)
         payload = json.loads(result.content)
         assert payload["reason"] == "region_access"
 
@@ -171,11 +175,80 @@ class TestWrapToolCall:
 
 
 # ---------------------------------------------------------------------------
+# Layer 2 — Tool/access guardrail (before_model)
+# ---------------------------------------------------------------------------
+
+class TestBeforeModel:
+    grd = ToolGuardrails()
+
+    def test_passes_clean_history(self):
+        state = {"messages": [
+            HumanMessage("Show me west data"),
+            AIMessage("West apartment/2 is high priority."),
+        ]}
+        result = self.grd.before_model(state, _runtime())
+        assert result is None
+
+    def test_passes_empty_messages(self):
+        result = self.grd.before_model({"messages": []}, _runtime())
+        assert result is None
+
+    def test_terminates_on_region_access_block(self):
+        blocked_tool = ToolMessage(
+            content=json.dumps({
+                "status": "blocked",
+                "reason": "region_access",
+                "message": "Access denied. You are not licensed for the 'north' region.",
+            }),
+            name="get_demand_signals",
+            tool_call_id="test_call_id",
+        )
+        state = {"messages": [HumanMessage("Show me north data"), blocked_tool]}
+        result = self.grd.before_model(state, _runtime())
+        assert result is not None
+        payload = json.loads(result["messages"][0].content)
+        assert payload["reason"] == "region_access"
+        assert result["jump_to"] == "end"
+
+    def test_terminates_on_dataset_mutation_block(self):
+        blocked_tool = ToolMessage(
+            content=json.dumps({
+                "status": "blocked",
+                "reason": "dataset_mutation",
+                "message": "Datasets are read-only.",
+            }),
+            name="update_asking_price",
+            tool_call_id="test_call_id",
+        )
+        state = {"messages": [HumanMessage("Update listing price"), blocked_tool]}
+        result = self.grd.before_model(state, _runtime())
+        assert result is not None
+        payload = json.loads(result["messages"][0].content)
+        assert payload["reason"] == "dataset_mutation"
+
+    def test_terminates_on_broker_action_block(self):
+        blocked_tool = ToolMessage(
+            content=json.dumps({
+                "status": "blocked",
+                "reason": "broker_action_restriction",
+                "message": "Tool requires analyst access.",
+            }),
+            name="create_segment_report",
+            tool_call_id="test_call_id",
+        )
+        state = {"messages": [HumanMessage("Generate report"), blocked_tool]}
+        result = self.grd.before_model(state, _runtime())
+        assert result is not None
+        payload = json.loads(result["messages"][0].content)
+        assert payload["reason"] == "broker_action_restriction"
+
+
+# ---------------------------------------------------------------------------
 # Layer 3 — Output guardrail
 # ---------------------------------------------------------------------------
 
 class TestAfterAgent:
-    grd = RealThorGuardrails()
+    grd = OutputGuardrails()
 
     def _ai_state(self, content: str) -> dict:
         return {"messages": [AIMessage(content)]}

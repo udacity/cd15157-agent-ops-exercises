@@ -1,6 +1,7 @@
 /state.db
 /last_run_id.txt
 /logs/runs.jsonl
+/langfuse/
 .venv
 __pycache__/
 .env

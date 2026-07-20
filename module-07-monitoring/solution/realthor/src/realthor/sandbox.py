@@ -1,5 +1,5 @@
 import ast
-import concurrent.futures
+import threading
 import io
 import math
 
@@ -70,19 +70,21 @@ def run_sandboxed(
         **dataframes,
     }
 
-    def _exec() -> None:
-        exec(code, safe_globals)  # noqa: S102
+    errors: list[str] = []
 
-    executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
-    future = executor.submit(_exec)
-    try:
-        future.result(timeout=timeout)
-        output = buf.getvalue().strip()
-        executor.shutdown(wait=False)
-        return output, ""
-    except concurrent.futures.TimeoutError:
-        executor.shutdown(wait=False)
+    def _exec() -> None:
+        try:
+            exec(code, safe_globals)  # noqa: S102
+        except Exception as exc:  # noqa: BLE001
+            errors.append(str(exc))
+
+    # Daemon thread so a runaway loop (e.g. `while True: pass`) can't block
+    # interpreter exit. On timeout we abandon it instead of joining forever.
+    thread = threading.Thread(target=_exec, daemon=True)
+    thread.start()
+    thread.join(timeout)
+    if thread.is_alive():
         return "", "execution timed out"
-    except Exception as exc:
-        executor.shutdown(wait=False)
-        return "", str(exc)
+    if errors:
+        return "", errors[0]
+    return buf.getvalue().strip(), ""

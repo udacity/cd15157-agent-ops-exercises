@@ -1,17 +1,3 @@
-"""M07 demo 01 — RealThor without monitoring.
-
-Four varied cases run and scroll by in the terminal. No logs written.
-The team cannot answer: how many succeeded? what did each cost? which
-tools were called? was there a guardrail block?
-
-Cases:
-  --case normal      Listing priority query (tools: get_listing_priority)
-  --case blocked     Input guardrail fires — executive compensation query
-  --case hitl        iBuyer recommendation above threshold — HITL interrupt
-  --case multi-tool  Cross-segment comparison — multiple tool calls
-  --case all         Run all four cases in sequence (default)
-"""
-
 import pathlib
 import uuid
 
@@ -22,11 +8,10 @@ from langchain.agents import create_agent
 from langchain.agents.middleware import HumanInTheLoopMiddleware
 from langchain.agents.middleware.human_in_the_loop import InterruptOnConfig
 from langchain_core.messages import HumanMessage
-from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.prebuilt.tool_node import ToolCallRequest
 
-from realthor.config import load_config, resolve_paths
+from realthor.config import load_config, make_chat_model, resolve_paths
 from realthor.policies import evaluate_channel_policy
 from realthor.tools import make_tools
 
@@ -103,10 +88,7 @@ def _make_hitl_policy(cfg: dict) -> HumanInTheLoopMiddleware:
 
 
 def _build_agent(cfg: dict, checkpointer: InMemorySaver):
-    model = ChatOpenAI(
-        model=cfg["model"]["name"],
-        temperature=cfg["model"]["temperature"],
-    )
+    model = make_chat_model(cfg)
     with open(cfg["paths"]["prompt"]) as f:
         system_prompt = f.read()
     tools = make_tools(cfg)

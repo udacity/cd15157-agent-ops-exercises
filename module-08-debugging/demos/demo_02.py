@@ -1,13 +1,3 @@
-"""Demo 2 — Reconstructing the run.
-
-Same non-deterministic question, now on a durable SqliteSaver keyed by run_id. The
-run's state persists to state.db, so after the fact `replay` reconstructs exactly
-what that run did — its tool trajectory, the intermediate values it computed, and
-its final answer — even though a fresh run would answer differently.
-
-    uv run python demo_02.py --case all
-"""
-
 import json
 import uuid
 from datetime import datetime, timezone
@@ -23,17 +13,22 @@ from realthor.replay import build_checkpointer, format_report, reconstruct_conte
 
 load_dotenv()
 
-QUESTION = "Should we acquire through iBuyer in north for 3-bedroom houses?"
+QUESTIONS = {
+    "channel": "Which acquisition channel should we use for 3-bedroom houses in north, marketplace or iBuyer?",
+    "demand": "What is the current demand for 3-bedroom houses in north?",
+    "supply": "What is the current supply snapshot for 3-bedroom houses in north?",
+}
+
+RUNS_FILE = Path("last_runs.json")
 
 
-def _log(cfg, run_id):
-    """Persist the minimal metadata replay cross-references (input + versions)."""
+def _log(cfg, run_id, question):
     log_dir = Path(cfg["logging"]["log_dir"])
     log_dir.mkdir(parents=True, exist_ok=True)
     row = {
         "run_id": run_id,
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "input_text": QUESTION,
+        "input_text": question,
         "prompt_version": Path(cfg["paths"]["prompt"]).name,
         "dataset_version": cfg["agent"]["version"],
     }
@@ -41,35 +36,49 @@ def _log(cfg, run_id):
         f.write(json.dumps(row) + "\n")
 
 
-@click.command()
-@click.option("--case", default="all", type=click.Choice(["run", "replay", "all"]))
-def main(case):
-    cfg = resolve_paths(load_config("config.yaml"), "config.yaml")
+def _load_runs():
+    return json.loads(RUNS_FILE.read_text()) if RUNS_FILE.exists() else {}
+
+
+def _run(cfg, scenario):
+    question = QUESTIONS[scenario]
+    run_id = str(uuid.uuid4())
+    agent = build_agent(cfg, checkpointer=build_checkpointer(cfg))
+    result = agent.invoke(
+        {"messages": [HumanMessage(question)]},
+        config={"configurable": {"thread_id": run_id}},
+    )
+    _log(cfg, run_id, question)
+    runs = _load_runs()
+    runs[scenario] = run_id
+    RUNS_FILE.write_text(json.dumps(runs))
+    click.echo(f"=== Run [{scenario}] ===")
+    click.echo(result["messages"][-1].content)
+    click.echo(f"\nRun ID: {run_id}")
+
+
+def _replay(cfg, scenario):
+    run_id = _load_runs().get(scenario)
+    if not run_id:
+        click.echo(f"No run to replay for '{scenario}' — run `--scenario {scenario} --case run` first.")
+        return
     log_path = Path(cfg["logging"]["log_dir"]) / "runs.jsonl"
-    state_path = Path("last_run_id.txt")
+    click.echo(f"\n=== Replay [{scenario}] (reconstructed from state.db) ===")
+    ctx = reconstruct_context(run_id, build_checkpointer(cfg), log_path)
+    click.echo(format_report(ctx))
 
-    if case in ("run", "all"):
-        run_id = str(uuid.uuid4())
-        checkpointer = build_checkpointer(cfg)
-        agent = build_agent(cfg, checkpointer=checkpointer)
-        result = agent.invoke(
-            {"messages": [HumanMessage(QUESTION)]},
-            config={"configurable": {"thread_id": run_id}},
-        )
-        _log(cfg, run_id)
-        state_path.write_text(run_id)
-        click.echo("=== Run ===")
-        click.echo(result["messages"][-1].content)
-        click.echo(f"\nRun ID: {run_id}")
 
-    if case in ("replay", "all"):
-        run_id = state_path.read_text().strip() if state_path.exists() else None
-        if not run_id:
-            click.echo("No run to replay — run `--case run` first.")
-            return
-        click.echo("\n=== Replay (reconstructed from state.db) ===")
-        ctx = reconstruct_context(run_id, build_checkpointer(cfg), log_path)
-        click.echo(format_report(ctx))
+@click.command()
+@click.option("--scenario", default="all", type=click.Choice(list(QUESTIONS) + ["all"]))
+@click.option("--case", default="all", type=click.Choice(["run", "replay", "all"]))
+def main(scenario, case):
+    cfg = resolve_paths(load_config("config.yaml"), "config.yaml")
+    scenarios = list(QUESTIONS) if scenario == "all" else [scenario]
+    for s in scenarios:
+        if case in ("run", "all"):
+            _run(cfg, s)
+        if case in ("replay", "all"):
+            _replay(cfg, s)
 
 
 if __name__ == "__main__":

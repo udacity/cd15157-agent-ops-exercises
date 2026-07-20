@@ -55,7 +55,7 @@ def make_tools(cfg: dict) -> list:
         v = v_row.iloc[0] if not v_row.empty else None
         active = int(s["active_listings"])
         demand_score = float(d["demand_score"])
-        supply_score = float(d["supply_score"])
+        supply_score = float(s["supply_score"])
         velocity_score = float(v["velocity_score"]) if v is not None else None
 
         if demand_score >= 0.7 and supply_score <= 0.5:

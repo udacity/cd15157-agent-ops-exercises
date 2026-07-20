@@ -1,13 +1,3 @@
-"""Demo 1 — The failure that won't reproduce.
-
-RealThor on an in-memory checkpointer (M07 behavior). The North iBuyer question is
-non-deterministic: rerun it and the recommendation can change. And because state
-lives only in memory, once the process exits there is no way to ask "what did the
-first run actually do?" — no trajectory, no intermediate values, nothing to inspect.
-
-    uv run python demo_01.py --case all
-"""
-
 import click
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
@@ -18,7 +8,7 @@ from realthor.config import load_config, resolve_paths
 
 load_dotenv()
 
-QUESTION = "Should we acquire through iBuyer in north for 3-bedroom houses?"
+QUESTION = "Which acquisition channel should we use for 3-bedroom houses in north, marketplace or iBuyer?"
 
 
 def _run_once(agent, thread_id):

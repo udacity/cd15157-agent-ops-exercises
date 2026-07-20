@@ -50,7 +50,7 @@ def _score_lookup(demand: pd.DataFrame, supply: pd.DataFrame, region: str,
     return d_score, s_score
 
 
-def _build_normal_m02(demand, supply):
+def _build_normal_v02(demand, supply):
     rows = []
     for sid, region, pt, beds, priority, action in M02_GOLDEN:
         d_score, s_score = _score_lookup(demand, supply, region, pt, beds)
@@ -61,7 +61,7 @@ def _build_normal_m02(demand, supply):
         must_not = MUST_NOT_CONTAIN_BY_PRIORITY[priority]
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m02",
+            "version_baseline": "v02",
             "type": "normal",
             "user_id": "analyst_001",
             "region": region,
@@ -76,7 +76,7 @@ def _build_normal_m02(demand, supply):
     return rows
 
 
-def _build_normal_m04():
+def _build_normal_v04():
     """15 new normal pass scenarios: 5 broker own-region + 10 analyst with new tools."""
     rows = []
 
@@ -91,7 +91,7 @@ def _build_normal_m04():
     for sid, uid, region, pt, beds, priority, action in broker_cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": "normal",
             "user_id": uid,
             "region": region,
@@ -130,7 +130,7 @@ def _build_normal_m04():
     for sid, uid, region, query, must_contain, must_not in analyst_cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": "normal",
             "user_id": uid,
             "region": region,
@@ -225,7 +225,7 @@ def _build_guardrail_input():
     for sid, uid, sc_type, query, result, reason, must_contain, must_not in cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": sc_type,
             "user_id": uid,
             "region": "",
@@ -303,7 +303,7 @@ def _build_guardrail_tool():
     for sid, uid, sc_type, query, result, reason, must_contain, must_not in cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": sc_type,
             "user_id": uid,
             "region": "",
@@ -364,7 +364,7 @@ def _build_guardrail_output():
     for sid, uid, sc_type, query, result, reason, must_contain, must_not in cases:
         rows.append({
             "scenario_id": sid,
-            "version_baseline": "m04",
+            "version_baseline": "v04",
             "type": sc_type,
             "user_id": uid,
             "region": "",
@@ -388,8 +388,8 @@ def main():
     supply = pd.read_csv(DATA_DIR / "supply_snapshot.csv")
 
     all_rows = (
-        _build_normal_m02(demand, supply)
-        + _build_normal_m04()
+        _build_normal_v02(demand, supply)
+        + _build_normal_v04()
         + _build_guardrail_input()
         + _build_guardrail_tool()
         + _build_guardrail_output()

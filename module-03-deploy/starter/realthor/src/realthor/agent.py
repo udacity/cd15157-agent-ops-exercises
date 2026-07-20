@@ -1,10 +1,17 @@
+"""
+RealThor agent — Module 3 exercise skeleton.
+
+Implement build_agent() and the analyze command so that:
+    uv run realthor analyze --region west --property-type apartment --bedrooms 2
+calls the agent and prints a recommendation.
+"""
+
 from dotenv import load_dotenv
 import click
 import pandas as pd
-from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
-from realthor.config import load_config, load_prompt, resolve_paths
+from realthor.config import load_config, load_prompt, make_chat_model, resolve_paths
 from realthor.tools import make_tools
 
 load_dotenv()
@@ -12,7 +19,7 @@ load_dotenv()
 
 def build_agent(config_path: str = "config.yaml"):
     cfg = resolve_paths(load_config(config_path), config_path)
-    # TODO: create a ChatOpenAI model using cfg["model"]["name"] and cfg["model"]["temperature"]
+    # TODO: build the model from cfg with make_chat_model(cfg)
     # TODO: load the system prompt with load_prompt(cfg["paths"]["prompt"])
     # TODO: load demand and supply DataFrames with pd.read_csv()
     # TODO: call make_tools(demand, supply) to get the tool list

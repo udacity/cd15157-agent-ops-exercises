@@ -1,19 +1,15 @@
 import pandas as pd
 from langchain.agents import create_agent
 from langchain_core.tools import tool
-from langchain_openai import ChatOpenAI
 
-from realthor.config import load_prompt
+from realthor.config import load_prompt, make_chat_model
 from realthor.guardrails import UserContext, make_guardrails, make_hitl_policy
 from realthor.tools import make_execute_python_tool, make_tools
 
 
 def build_analyst_agent(cfg: dict):
     """Build the analyst sub-agent: execute_python only, no guardrails."""
-    model = ChatOpenAI(
-        model=cfg["model"]["name"],
-        temperature=cfg["model"]["temperature"],
-    )
+    model = make_chat_model(cfg)
     analyst_prompt = load_prompt(cfg["paths"]["analyst_prompt"])
     tools = [make_execute_python_tool(cfg)]
     return create_agent(model=model, tools=tools, system_prompt=analyst_prompt)
@@ -21,10 +17,7 @@ def build_analyst_agent(cfg: dict):
 
 def build_main_agent(cfg: dict, checkpointer=None):
     """Build the main RealThor agent with bespoke tools + analyst delegation + guardrails + HITL."""
-    model = ChatOpenAI(
-        model=cfg["model"]["name"],
-        temperature=cfg["model"]["temperature"],
-    )
+    model = make_chat_model(cfg)
     system_prompt = load_prompt(cfg["paths"]["prompt"])
     analyst = build_analyst_agent(cfg)
 

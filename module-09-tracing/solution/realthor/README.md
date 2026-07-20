@@ -12,7 +12,7 @@ reasoning path between input and output.
 
 ```bash
 uv sync
-cp .env.example .env   # add OPENAI_API_KEY and, for tracing, the LANGFUSE_* keys
+cp .env.example .env   # set LLM_PROVIDER + its key (Vocareum by default); for tracing add the LANGFUSE_* keys
 ```
 
 ---
@@ -31,7 +31,7 @@ RealThor v0.9 instruments the agent with tracing on top of the v0.8 replay syste
 - **`config.yaml`**: new `tracing.enabled` toggle (the checked-in on/off switch; the host +
   keys are secrets that live in `.env`); prompt bumped to `system_prompt_v9.md`; version `0.9.0`.
 - **`.env.example`**: adds `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_HOST`.
-- **5 M09 regression scenarios** added to the eval suite (95 total) — confirming that
+- **5 tracing regression scenarios** added to the eval suite (95 total) — confirming that
   attaching the tracing callback did not change agent behavior.
 
 `agents.py` and `monitor.py` are unchanged: tracing is a pure observer attached at invoke
@@ -167,7 +167,7 @@ Expected output:
 
 ```
 === Running unit tests ===
-... 88 passed
+... 86 passed
 
 === Checking data integrity ===
 18 passed

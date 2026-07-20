@@ -1,11 +1,11 @@
-a7f2e91 chore: bump to v0.10, seed realthor.db, add m10 context eval scenarios (101 rows) + context/auth/sessions tests
+a7f2e91 chore: bump to v0.10, seed realthor.db, add v10 context eval scenarios (101 rows) + context/auth/sessions tests
 f3b9c04 feat: add interactive app (login + session menu) and identity-attributed traces
 e2d81a6 feat: add auth.py (password login) and sessions.py (realthor.db: users + owned sessions)
 b6c4f52 feat: add context.py with thread_id_for (user-namespaced state isolation key)
-d1a7f3e chore: bump to v0.9, add m09 tracing eval scenarios (95 rows) and tracing tests
+d1a7f3e chore: bump to v0.9, add v09 tracing eval scenarios (95 rows) and tracing tests
 9e4c2b8 feat: add tracing.py with Langfuse CallbackHandler; --trace flag + flush on analyze/chat
 7a4c2e9 feat: add replay command reconstructing run context from checkpoints + logs
-b8d1f60 feat: persist agent state to SqliteSaver keyed by run_id; add debug config + m08 evals
+b8d1f60 feat: persist agent state to SqliteSaver keyed by run_id; add debug config + v08 evals
 c3d9f1a feat: add monitoring report command and update eval scenarios to 85 rows
 1e8b2a4 feat: add monitor.py with RunRecord, MonitoringMetrics, and run logging
 2b1f8a3 feat: add HITL policy middleware and channel recommendation tool

@@ -3,9 +3,8 @@ import pandas as pd
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
-from langchain_openai import ChatOpenAI
 
-from realthor.config import load_config, load_prompt, resolve_paths
+from realthor.config import load_config, load_prompt, make_chat_model, resolve_paths
 from realthor.guardrails import (
     GUEST_CONTEXT,
     InputGuardrails,
@@ -23,7 +22,7 @@ BROKER_WEST = UserContext(user_id="broker_west_001", role="broker", region_acces
 
 def _build():
     cfg = resolve_paths(load_config("config.yaml"), "config.yaml")
-    model = ChatOpenAI(model=cfg["model"]["name"], temperature=cfg["model"]["temperature"])
+    model = make_chat_model(cfg)
     system_prompt = load_prompt(cfg["paths"]["prompt"])
     demand = pd.read_csv(cfg["paths"]["demand_data"])
     supply = pd.read_csv(cfg["paths"]["supply_data"])
@@ -56,7 +55,7 @@ def case_persona(agent):
 
 
 def case_broker_action(agent):
-    query = "Flag the west/apartment/2 segment for internal priority review."
+    query = "Flag the west/apartment/2 segment for internal priority follow-up."
     print("\n--- Action tool restriction (broker blocked at tool) ---")
     print(f"Input:    {query}")
     print(f"Identity: {BROKER_WEST.user_id} ({BROKER_WEST.role})")

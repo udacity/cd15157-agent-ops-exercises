@@ -173,7 +173,7 @@ def make_tools(
         )
 
     # ------------------------------------------------------------------
-    # New in M04 — data retrieval tools (sensitive fields stripped at source)
+    # New in M04 — data retrieval tools (sensitive fields redacted by guardrail)
     # ------------------------------------------------------------------
 
     @tool
@@ -196,7 +196,8 @@ def make_tools(
         """Get supply opportunities in the pipeline for a Ciudaty segment.
 
         Returns opportunity IDs, stage, estimated value, and context fields.
-        Sensitive fields (internal_score, owner_contact, acquisition_strategy) are excluded.
+        Sensitive fields (internal_score, owner_contact, acquisition_strategy)
+        are redacted by the guardrail before the model sees them.
 
         Args:
             region: Ciudaty region (west, north, south, east, center)
@@ -218,7 +219,7 @@ def make_tools(
         """Get active listings for a Ciudaty segment.
 
         Returns listing IDs, asking price, days on market, and context fields.
-        Sensitive fields (seller_name, seller_motivation) are excluded.
+        Sensitive fields (seller_name, seller_motivation) are redacted by the guardrail.
 
         Args:
             region: Ciudaty region (west, north, south, east, center)
@@ -241,7 +242,7 @@ def make_tools(
         """Get recent sales for a Ciudaty segment.
 
         Returns sale IDs, final price, days to close, and context fields.
-        Sensitive fields (commission_amount, agent_performance_score) are excluded.
+        Sensitive fields (commission_amount, agent_performance_score) are redacted.
 
         Args:
             region: Ciudaty region (west, north, south, east, center)

@@ -198,9 +198,9 @@ def check_users_composition():
 
 def check_eval_scenario_count():
     df = _load("eval_scenarios.csv", EVAL_DIR)
-    if len(df) != 100:
+    if len(df) != 80:
         raise DataValidationError(
-            f"eval_scenarios.csv: expected 100 rows, got {len(df)}\n{RESTORE_HINT}"
+            f"eval_scenarios.csv: expected 80 rows, got {len(df)}\n{RESTORE_HINT}"
         )
 
 
@@ -218,7 +218,7 @@ def check_eval_no_conflicting_scenarios():
     df = df.fillna("")
     # Include approval in the key: same query + same approval decision may legitimately
     # produce different outcomes (e.g. HITL pending vs approved vs rejected).
-    key_cols = ["user_id", "query_override", "region", "property_type", "bedrooms", "approval"]
+    key_cols = ["user_id", "query_override", "region", "property_type", "bedrooms"]
     conflicts = (
         df.groupby(key_cols)["expected_result"]
         .nunique()
@@ -234,7 +234,7 @@ def check_eval_no_conflicting_scenarios():
 def check_eval_valid_column_values():
     df = _load("eval_scenarios.csv", EVAL_DIR)
     errors = []
-    valid_baselines = {"m02", "m03", "m04", "m05", "m06"}
+    valid_baselines = {"v02", "v03", "v04", "v05", "v06"}
     valid_types = {"normal", "guardrail_input", "guardrail_tool", "guardrail_output",
                    "sandbox_allowed", "sandbox_denied",
                    "hitl_pending", "hitl_approved", "hitl_rejected"}
@@ -293,10 +293,10 @@ def check_eval_normal_has_must_contain():
 
 def check_eval_type_distribution():
     df = _load("eval_scenarios.csv", EVAL_DIR)
-    m02_count = len(df[df["version_baseline"] == "m02"])
-    if m02_count != 20:
+    v02_count = len(df[df["version_baseline"] == "v02"])
+    if v02_count != 20:
         raise DataValidationError(
-            f"eval_scenarios.csv: expected 20 m02 regression rows, got {m02_count}\n{RESTORE_HINT}"
+            f"eval_scenarios.csv: expected 20 v02 regression rows, got {v02_count}\n{RESTORE_HINT}"
         )
     for sc_type in ("guardrail_input", "guardrail_tool", "guardrail_output"):
         count = len(df[df["type"] == sc_type])
@@ -321,7 +321,7 @@ ALL_CHECKS = [
     ("sales.lead_id FK",                  check_sales_lead_fk),
     ("sale_type matches listing_type",     check_sales_type_matches_listing_type),
     ("users composition",                  check_users_composition),
-    ("eval: 100 rows",                     check_eval_scenario_count),
+    ("eval: 80 rows",                     check_eval_scenario_count),
     ("eval: no duplicate scenario_ids",    check_eval_no_duplicate_ids),
     ("eval: no conflicting scenarios",     check_eval_no_conflicting_scenarios),
     ("eval: valid column values",          check_eval_valid_column_values),

@@ -8,7 +8,7 @@ Listing Supply Intelligence agent for the Ciudaty PropTech. Adds a HITL policy l
 
 ```bash
 uv sync
-cp .env.example .env   # add your OPENAI_API_KEY
+cp .env.example .env   # set LLM_PROVIDER + its key (Vocareum by default)
 ```
 
 ---
@@ -122,7 +122,7 @@ Expected output:
 
 ```
 === Running unit tests ===
-... 67 passed
+... 65 passed
 
 === Checking data integrity ===
 18 passed

@@ -8,7 +8,7 @@ Listing Supply Intelligence agent for the Ciudaty PropTech. Adds durable state p
 
 ```bash
 uv sync
-cp .env.example .env   # add your OPENAI_API_KEY
+cp .env.example .env   # set LLM_PROVIDER + its key (Vocareum by default)
 ```
 
 ---
@@ -21,7 +21,7 @@ RealThor v0.8 makes runs reproducible on top of the v0.7 monitoring system:
 - **`app.py`**: the checkpointer is upgraded from `InMemorySaver` to a durable **`SqliteSaver`**, and every `analyze`/`chat` run is keyed by `thread_id = run_id`, so a run's state survives the process. New **`replay`** subcommand.
 - **`monitor.py`**: `RunRecord` gains `prompt_version` and `dataset_version` (defaulted) so the versions active during a run are persisted for reconstruction.
 - **`config.yaml`**: new `debug.state_db` path; prompt bumped to `system_prompt_v8.md`; version `0.8.0`.
-- **5 M08 regression scenarios** added to the eval suite (90 total).
+- **5 debugging regression scenarios** added to the eval suite (90 total).
 
 ---
 
@@ -123,7 +123,7 @@ Expected output:
 
 ```
 === Running unit tests ===
-... 82 passed
+... 81 passed
 
 === Checking data integrity ===
 18 passed

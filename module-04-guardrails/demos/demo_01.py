@@ -6,9 +6,8 @@ from langchain.agents import create_agent
 from langchain.agents.middleware import PIIMiddleware
 from langchain.agents.middleware._redaction import PIIDetectionError
 from langchain_core.messages import HumanMessage
-from langchain_openai import ChatOpenAI
 
-from realthor.config import load_config, load_prompt, resolve_paths
+from realthor.config import load_config, load_prompt, make_chat_model, resolve_paths
 from realthor.tools import make_tools
 
 load_dotenv()
@@ -18,7 +17,7 @@ QUERY = "My email is broker@ciudaty.com. Show me demand signals for west apartme
 
 def _build(middleware=None):
     cfg = resolve_paths(load_config("config.yaml"), "config.yaml")
-    model = ChatOpenAI(model=cfg["model"]["name"], temperature=cfg["model"]["temperature"])
+    model = make_chat_model(cfg)
     system_prompt = load_prompt(cfg["paths"]["prompt"])
     demand = pd.read_csv(cfg["paths"]["demand_data"])
     supply = pd.read_csv(cfg["paths"]["supply_data"])

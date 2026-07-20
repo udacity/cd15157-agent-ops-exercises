@@ -253,12 +253,27 @@ def chat(user_id, message, approval, config_path):
 
 
 @app.command()
+@click.option(
+    "--seed",
+    is_flag=True,
+    help="Load a representative week of prior runs from seed_runs.jsonl into an empty log, "
+    "so the report shows the Key Signals firing. Only seeds when the log is empty.",
+)
 @click.option("--config", "config_path", default="config.yaml", show_default=True)
-def report(config_path):
+def report(config_path, seed):
     """Generate a monitoring report from logs/runs.jsonl."""
     cfg = resolve_paths(load_config(config_path), config_path)
     log_path = Path(cfg["logging"]["log_dir"]) / "runs.jsonl"
     output_dir = Path(cfg["logging"]["reports_dir"])
+    if seed:
+        seed_path = Path(__file__).resolve().parents[2] / "seed_runs.jsonl"
+        if log_path.exists():
+            click.echo(f"{log_path} already present — not re-seeding.")
+        else:
+            log_path.parent.mkdir(parents=True, exist_ok=True)
+            log_path.write_text(seed_path.read_text())
+            n = sum(1 for _ in open(seed_path))
+            click.echo(f"Loaded {n} prior runs from seed_runs.jsonl.")
     records = load_run_records(log_path)
     if not records:
         click.echo(f"No run records found at {log_path}")

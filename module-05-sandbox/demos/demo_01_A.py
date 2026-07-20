@@ -1,15 +1,3 @@
-"""M05 demo A — the static tool ceiling.
-
-Three precomputed-score tools answer three analyst queries perfectly.
-A fourth query — row-level filtering — has no matching tool and fails.
-
-Cases:
-  --case demand      Demand signals for west/apartment/2
-  --case supply      Supply snapshot for north/studio/1
-  --case priority    Listing priority for west/apartment/2
-  --case no-tool     What % of active west listings > 45 days on market? (no tool can answer)
-  --case all         Run all four cases in sequence (default)
-"""
 import pathlib
 
 import click
@@ -17,9 +5,8 @@ import pandas as pd
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
-from langchain_openai import ChatOpenAI
 
-from realthor.config import load_config, resolve_paths
+from realthor.config import load_config, make_chat_model, resolve_paths
 from realthor.tools import make_tools
 
 load_dotenv()
@@ -38,10 +25,7 @@ CASES = {
 
 
 def _build_agent(cfg: dict):
-    model = ChatOpenAI(
-        model=cfg["model"]["name"],
-        temperature=cfg["model"]["temperature"],
-    )
+    model = make_chat_model(cfg)
     demand = pd.read_csv(cfg["paths"]["demand_data"])
     supply = pd.read_csv(cfg["paths"]["supply_data"])
     listings = pd.read_csv(cfg["paths"]["listings_data"])

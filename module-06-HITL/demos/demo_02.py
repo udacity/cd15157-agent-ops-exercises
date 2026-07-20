@@ -1,16 +1,3 @@
-"""M06 demo 02 — channel recommendations with HumanInTheLoopMiddleware.
-
-iBuyer recommendations above the $500k threshold trigger an interrupt.
-The agent pauses and waits for operator approval before executing.
-
-Cases:
-  --case marketplace    Marketplace channel — no interrupt, auto-approved
-  --case pending        iBuyer high-value, no approval — pauses and exits
-  --case approve        iBuyer high-value, approval=approve — resumes, submits
-  --case reject         iBuyer high-value, approval=reject — resumes, rejects
-  --case all            Run all four cases in sequence (default)
-"""
-
 import pathlib
 import uuid
 
@@ -19,13 +6,12 @@ from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain.agents.middleware import HumanInTheLoopMiddleware
 from langchain.agents.middleware.human_in_the_loop import InterruptOnConfig
-from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.prebuilt.tool_node import ToolCallRequest
 from langgraph.types import Command
 
-from realthor.config import load_config, resolve_paths
+from realthor.config import load_config, make_chat_model, resolve_paths
 from realthor.policies import evaluate_channel_policy
 from realthor.tools import make_tools
 
@@ -99,10 +85,7 @@ def _make_hitl_policy(cfg: dict) -> HumanInTheLoopMiddleware:
 
 
 def _build_agent(cfg: dict, checkpointer: InMemorySaver):
-    model = ChatOpenAI(
-        model=cfg["model"]["name"],
-        temperature=cfg["model"]["temperature"],
-    )
+    model = make_chat_model(cfg)
     with open(cfg["paths"]["prompt"]) as f:
         system_prompt = f.read()
     tools = make_tools(cfg)

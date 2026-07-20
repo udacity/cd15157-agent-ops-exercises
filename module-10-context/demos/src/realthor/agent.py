@@ -14,11 +14,10 @@ from langchain.agents import create_agent
 from langchain.tools import ToolRuntime, tool
 from langchain_core.callbacks import UsageMetadataCallbackHandler
 from langchain_core.messages import HumanMessage
-from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.sqlite import SqliteSaver
 
 from realthor import auth, sessions
-from realthor.config import load_prompt
+from realthor.config import load_prompt, make_chat_model
 from realthor.context import UserContext, thread_id_for
 
 
@@ -38,7 +37,7 @@ def ensure_db(cfg: dict) -> None:
 
 
 def build_agent(cfg: dict, checkpointer=None):
-    model = ChatOpenAI(model=cfg["model"]["name"], temperature=cfg["model"]["temperature"])
+    model = make_chat_model(cfg)
     demand = pd.read_csv(cfg["paths"]["demand_data"])
 
     @tool

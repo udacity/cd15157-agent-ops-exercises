@@ -70,7 +70,7 @@ def cli(monkeypatch):
     monkeypatch.setattr(interactive, "build_main_agent", lambda cfg, checkpointer=None: _FakeAgent())
     monkeypatch.setattr(interactive, "build_checkpointer", lambda cfg: InMemorySaver())
     monkeypatch.setattr(interactive, "build_tracer", lambda cfg: None)
-    monkeypatch.setattr(interactive, "ChatOpenAI", _FakeTitleModel)
+    monkeypatch.setattr(interactive, "make_chat_model", lambda cfg: _FakeTitleModel())
     return CliRunner()
 
 

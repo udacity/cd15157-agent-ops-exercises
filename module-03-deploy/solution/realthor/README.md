@@ -6,8 +6,16 @@ Listing Supply Intelligence agent for Ciudaty PropTech.
 
 ```bash
 uv sync
-cp .env.example .env   # add your OPENAI_API_KEY
+cp .env.example .env   # set LLM_PROVIDER + its key (Vocareum by default)
 ```
+
+## What changed from v0.2
+
+v0.2 was a notebook with an evaluation suite. v0.3 is a deployable system:
+
+- RealThor is an installed package with a `src/` layout and a `realthor` CLI (`[project.scripts]`).
+- The agent is built with LangChain's `create_agent`, wiring the model, the versioned prompt, and the data tools.
+- It ships as a Docker image, so the same command runs locally and in a container.
 
 ## On-Demand Analysis
 
@@ -22,6 +30,24 @@ sh ops.sh
 ```
 
 Runs unit tests (`tests/`), the evaluation suite (`evaluation/run_eval.py`) against 5 scenarios, and — in the solution — builds and runs the Docker container as the CD step.
+
+## Project structure
+
+```
+realthor/
+├── pyproject.toml          # build-system, deps, `realthor` entry point
+├── config.yaml             # model + file paths
+├── ops.sh                  # CI + CD (tests, eval, Docker build/run)
+├── Dockerfile, compose.yaml, .dockerignore
+├── data/                   # Ciudaty CSVs
+├── prompts/system_prompt_v3.md
+├── evaluation/             # run_eval.py + eval_scenarios.csv
+├── tests/                  # unit tests
+└── src/realthor/
+    ├── config.py           # load_config, resolve_paths, load_prompt
+    ├── tools.py            # make_tools(demand, supply)
+    └── agent.py            # build_agent() + the click CLI
+```
 
 ## Local vs Deployed
 
@@ -86,7 +112,7 @@ The container is removed on exit because of `--rm`. If you need to keep it runni
 
 ### Secrets: local vs production
 
-Locally, `compose.yaml` reads `env_file: .env` and injects `OPENAI_API_KEY` as an environment variable into the container. The `.dockerignore` file ensures `.env` is never copied into the image itself.
+Locally, `compose.yaml` reads `env_file: .env`, which injects the whole `.env` into the container: `LLM_PROVIDER` plus whichever provider key it selects (`OPENAI_API_KEY` or `VOCAREUM_API_KEY`). So `docker compose run` uses the same provider you set locally, Vocareum included, with no compose change. The `.dockerignore` file ensures `.env` is never copied into the image itself.
 
 In production, you replace `env_file` with your platform's secret injection mechanism — the app code stays the same:
 
@@ -97,7 +123,7 @@ In production, you replace `env_file` with your platform's secret injection mech
 | AWS ECS | Secrets Manager ARN in the task definition |
 | HashiCorp Vault | Vault agent sidecar or SDK call at startup |
 
-The app reads `os.getenv("OPENAI_API_KEY")` in all cases — `load_dotenv()` falls back to environment variables automatically, so no code change is needed between environments.
+The app reads whichever provider key `LLM_PROVIDER` selects, via `os.getenv`, in all cases; `load_dotenv()` falls back to environment variables automatically, so no code change is needed between environments.
 
 ### Tagging images for a registry
 
@@ -132,4 +158,11 @@ services:
     build: .
     image: realthor:latest   # names the image; docker tag realthor:latest realthor:$GIT_SHA
     env_file: .env
+```
+
+## Commit
+
+```bash
+git add author/modules/03_deploy/exercises/solution/
+git commit -m "feat: deploy RealThor v0.3 as a packaged agent CLI"
 ```

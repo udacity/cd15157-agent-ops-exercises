@@ -1,4 +1,4 @@
-# RealThor v0.7 — Monitoring
+# RealThor v0.7: Monitoring
 
 Listing Supply Intelligence agent for the Ciudaty PropTech. Adds per-run structured logging and aggregate monitoring: every invocation writes to `logs/runs.jsonl`; `realthor report` computes and writes `reports/monitoring_report.md`.
 
@@ -8,7 +8,7 @@ Listing Supply Intelligence agent for the Ciudaty PropTech. Adds per-run structu
 
 ```bash
 uv sync
-cp .env.example .env   # add your OPENAI_API_KEY
+cp .env.example .env   # set LLM_PROVIDER + its key (Vocareum by default)
 ```
 
 ---
@@ -17,7 +17,7 @@ cp .env.example .env   # add your OPENAI_API_KEY
 
 RealThor v0.7 adds a monitoring layer on top of the v0.6 HITL system:
 
-- **`monitor.py`**: `RunRecord` + `MonitoringMetrics` dataclasses, `load_run_records`, `compute_metrics`, `generate_report`. Pure Python — no LangChain imports. This is the student deliverable.
+- **`monitor.py`**: `RunRecord` + `MonitoringMetrics` dataclasses, `load_run_records`, `compute_metrics`, `generate_report`. Pure Python, no LangChain imports. This is the student deliverable.
 - **`app.py` `_log_run`**: appends one JSON line to `logs/runs.jsonl` after every `analyze` or `chat` invocation. Captures latency, token usage, cost, tools called, guardrail decisions, and HITL outcome.
 - **`app.py` `report` subcommand**: reads `logs/runs.jsonl`, computes aggregate metrics, writes `reports/monitoring_report.md`, `reports/monitoring_report.json`, and `reports/monitoring_report.html`.
 - **`config.yaml`**: new `logging` section with `log_dir`, `reports_dir`, and token cost rates.
@@ -27,13 +27,13 @@ RealThor v0.7 adds a monitoring layer on top of the v0.6 HITL system:
 
 ## Main usage
 
-**`analyze`** — structured operational interface (unchanged from v0.6).
+**`analyze`**: structured operational interface (unchanged from v0.6).
 
 ```bash
 uv run realthor analyze --region west --property-type apartment --bedrooms 2 --user analyst_001
 ```
 
-**`chat`** — natural-language interface with HITL (unchanged from v0.6).
+**`chat`**: natural-language interface with HITL (unchanged from v0.6).
 
 ```bash
 uv run realthor chat -u analyst_001 -m "What is the listing priority for west/apartment/2?"
@@ -44,7 +44,7 @@ uv run realthor chat -u analyst_001 -m "Recommend iBuyer channel for OPP-00015"
 uv run realthor chat -u analyst_001 -m "Recommend iBuyer channel for OPP-00015" --approval approve
 ```
 
-**`report`** — generate monitoring report from accumulated run logs.
+**`report`**: generate monitoring report from accumulated run logs.
 
 ```bash
 uv run realthor report
@@ -52,6 +52,15 @@ uv run realthor report
 ```
 
 Every `analyze` or `chat` run automatically appends to `logs/runs.jsonl`. Run `report` after any number of invocations to see the aggregate picture.
+
+**`report --seed`**: with only a few runs the report is small and usually shows no signals. Pass `--seed` to load a representative week of prior runs from `seed_runs.jsonl` into an empty log, so the report has real volume and the Key Signals fire (p95 latency and failure rate over threshold). It only seeds when the log is empty, so it never clobbers or double-counts existing runs.
+
+```bash
+rm -rf logs reports
+uv run realthor report --seed
+# → Loaded 34 prior runs from seed_runs.jsonl.
+# → Report written to reports/monitoring_report.md
+```
 
 ---
 
@@ -74,7 +83,7 @@ build_main_agent (agents.py)
     ↓
 _log_run (app.py) — appends RunRecord to logs/runs.jsonl after every invoke
     ↓
-realthor report → monitor.py → reports/monitoring_report.{md,json}
+realthor report → monitor.py → reports/monitoring_report.{md,json,html}
 ```
 
 ---
@@ -131,7 +140,7 @@ Expected output:
 
 ```
 === Running unit tests ===
-... 76 passed
+... 74 passed
 
 === Checking data integrity ===
 18 passed

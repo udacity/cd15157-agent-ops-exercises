@@ -13,12 +13,11 @@ identity attribution on each trace) in ``context.py``.
 """
 
 import click
-from langchain_openai import ChatOpenAI
 
 from realthor import auth, sessions
 from realthor.agents import build_main_agent
 from realthor.app import ensure_db, run_agent_turn
-from realthor.config import load_config, resolve_paths
+from realthor.config import load_config, make_chat_model, resolve_paths
 from realthor.replay import build_checkpointer
 from realthor.tracing import build_tracer
 
@@ -46,9 +45,7 @@ def run_interactive(config_path: str) -> None:
         checkpointer = build_checkpointer(cfg)
         agent = build_main_agent(cfg, checkpointer=checkpointer)
         tracer = build_tracer(cfg)
-        title_model = ChatOpenAI(
-            model=cfg["model"]["name"], temperature=cfg["model"]["temperature"]
-        )
+        title_model = make_chat_model(cfg)
         _menu_loop(cfg, agent, user_ctx, tracer, title_model)
     except (click.Abort, EOFError, KeyboardInterrupt):
         # Clean exit on Ctrl-C / Ctrl-D at any prompt — no traceback.

@@ -8,7 +8,7 @@ Listing Supply Intelligence agent for the Ciudaty PropTech. Adds a sandboxed cod
 
 ```bash
 uv sync
-cp .env.example .env   # add your OPENAI_API_KEY
+cp .env.example .env   # set LLM_PROVIDER + its key (Vocareum by default)
 ```
 
 ---
@@ -22,7 +22,7 @@ RealThor v0.5 adds sandboxed code execution and splits the agent layer:
 - **`sandbox.py`**: two functions — `validate_code()` (AST inspection) and `run_sandboxed()` (restricted exec with timeout). Imported by `execute_python` in `tools.py`.
 - **`execute_python` tool**: exposes sandboxed pandas analysis to the analyst sub-agent. DataFrames are pre-loaded and sensitive columns stripped before they reach execution.
 - **New input guardrail**: `data_mutation_instruction` — blocks natural-language instructions to delete, update, or overwrite datasets before they reach any tool.
-- **90-scenario evaluation suite**: 10 new scenarios (`S001–S010`) covering sandbox-allowed, sandbox-denied, and the new input guardrail.
+- **90-scenario evaluation suite**: 10 new scenarios (`S001–S010`) covering sandbox-allowed analysis and input-guardrail refusals (requests to invoke Python system modules, or to mutate data).
 
 ---
 
@@ -45,8 +45,8 @@ uv run realthor chat -u analyst_001 -m "What percentage of active listings in we
 # Input guardrail fires (data_mutation_instruction)
 uv run realthor chat -u analyst_001 -m "Delete all inactive listings from the CSV file."
 
-# Sandbox fires (blocked import)
-uv run realthor chat -u analyst_001 -m "Use the os module to list all files in the data directory."
+# Input guardrail fires (topic_adherence): off-topic Python system-module request
+uv run realthor chat -u analyst_001 -m "Use Python's os module to list all files in the data directory."
 ```
 
 ---
@@ -113,7 +113,7 @@ Expected output:
 
 ```
 === Running unit tests ===
-... 58 passed
+... 56 passed
 
 === Checking data integrity ===
 18 passed

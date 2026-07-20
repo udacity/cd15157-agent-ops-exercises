@@ -1,17 +1,3 @@
-"""Demo 2 — The trace.
-
-Same North iBuyer question, now with a Langfuse CallbackHandler attached to the invoke.
-The handler records a span tree — one span per model call and tool call — and ships it to
-Langfuse. Open the run in the UI (http://localhost:3000 for the local stack) and the
-reasoning path is finally visible: the sequential tool spans get_demand_score →
-get_supply_snapshot → recommend_channel, each with the values it returned, showing the low
-demand score was fetched but not weighted in the decision.
-
-Requires a Langfuse backend and LANGFUSE_* keys in .env (see LANGFUSE.md).
-
-    uv run python demo_02.py --case traced-run
-"""
-
 import uuid
 
 import click
@@ -36,7 +22,7 @@ def main(case):
     tracer = build_tracer(cfg)
     if tracer is None:
         click.echo("Tracing is off or unconfigured.")
-        click.echo("Set tracing.enabled: true and put LANGFUSE_* keys in .env (see LANGFUSE.md).")
+        click.echo("Set tracing.enabled: true and put LANGFUSE_* keys in .env (run: sh langfuse_setup.sh).")
         return
 
     run_id = str(uuid.uuid4())

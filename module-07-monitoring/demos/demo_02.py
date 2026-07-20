@@ -1,17 +1,3 @@
-"""M07 demo 02 — RealThor with monitoring.
-
-Same four cases as demo_01, but now every invocation appends a structured
-record to logs/runs.jsonl. After all cases, generate_report() produces
-reports/monitoring_report.md — the same four runs, now queryable.
-
-Cases:
-  --case normal      Listing priority query
-  --case blocked     Input guardrail fires — logged as guardrail_blocked=True
-  --case hitl        iBuyer recommendation — logged as hitl_decision=pending
-  --case multi-tool  Cross-segment comparison — multiple tools logged
-  --case all         Run all four cases in sequence, then show report (default)
-"""
-
 import json
 import pathlib
 import time
@@ -26,11 +12,10 @@ from langchain.agents.middleware import HumanInTheLoopMiddleware
 from langchain.agents.middleware.human_in_the_loop import InterruptOnConfig
 from langchain_core.callbacks import UsageMetadataCallbackHandler
 from langchain_core.messages import HumanMessage, ToolMessage
-from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.prebuilt.tool_node import ToolCallRequest
 
-from realthor.config import load_config, resolve_paths
+from realthor.config import load_config, make_chat_model, resolve_paths
 from realthor.monitor import RunRecord, compute_metrics, generate_report, load_run_records
 from realthor.policies import evaluate_channel_policy
 from realthor.tools import make_tools
@@ -104,10 +89,7 @@ def _make_hitl_policy(cfg: dict) -> HumanInTheLoopMiddleware:
 
 
 def _build_agent(cfg: dict, checkpointer: InMemorySaver):
-    model = ChatOpenAI(
-        model=cfg["model"]["name"],
-        temperature=cfg["model"]["temperature"],
-    )
+    model = make_chat_model(cfg)
     with open(cfg["paths"]["prompt"]) as f:
         system_prompt = f.read()
     tools = make_tools(cfg)
@@ -206,6 +188,23 @@ def _run_case(agent, case: str, query: str, cfg: dict) -> None:
     _log_run(cfg, record)
 
 
+def _seed_log(cfg: dict) -> None:
+    """Load a week of prior runs into the log, but only if it doesn't exist yet.
+
+    Idempotent on purpose: seeding a log that already has entries would double up
+    the fixture, so if the file is already there we leave it untouched.
+    """
+    log_path = pathlib.Path(cfg["logging"]["log_dir"]) / "runs.jsonl"
+    seed_path = pathlib.Path(__file__).parent / "seed_runs.jsonl"
+    if log_path.exists():
+        print(f"{log_path} already present — not re-seeding.")
+        return
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    rows = seed_path.read_text().strip().splitlines()
+    log_path.write_text("\n".join(rows) + "\n")
+    print(f"Loaded {len(rows)} prior runs from seed_runs.jsonl.")
+
+
 @click.command()
 @click.option(
     "--case",
@@ -214,8 +213,15 @@ def _run_case(agent, case: str, query: str, cfg: dict) -> None:
     show_default=True,
     help="Which demo case to run.",
 )
-def main(case: str) -> None:
+@click.option(
+    "--seed",
+    is_flag=True,
+    help="Seed logs/runs.jsonl from seed_runs.jsonl (a week of prior runs) if it doesn't exist yet.",
+)
+def main(case: str, seed: bool) -> None:
     cfg = resolve_paths(load_config(CONFIG_PATH), CONFIG_PATH)
+    if seed:
+        _seed_log(cfg)
     checkpointer = InMemorySaver()
     agent = _build_agent(cfg, checkpointer)
 

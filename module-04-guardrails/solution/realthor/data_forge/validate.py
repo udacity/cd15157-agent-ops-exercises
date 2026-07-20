@@ -233,7 +233,7 @@ def check_eval_no_conflicting_scenarios():
 def check_eval_valid_column_values():
     df = _load("eval_scenarios.csv", EVAL_DIR)
     errors = []
-    valid_baselines = {"m02", "m03", "m04"}
+    valid_baselines = {"v02", "v03", "v04"}
     valid_types = {"normal", "guardrail_input", "guardrail_tool", "guardrail_output"}
     valid_results = {"pass", "blocked"}
 
@@ -290,10 +290,10 @@ def check_eval_normal_has_must_contain():
 
 def check_eval_type_distribution():
     df = _load("eval_scenarios.csv", EVAL_DIR)
-    m02_count = len(df[df["version_baseline"] == "m02"])
-    if m02_count != 20:
+    v02_count = len(df[df["version_baseline"] == "v02"])
+    if v02_count != 20:
         raise DataValidationError(
-            f"eval_scenarios.csv: expected 20 m02 regression rows, got {m02_count}\n{RESTORE_HINT}"
+            f"eval_scenarios.csv: expected 20 v02 regression rows, got {v02_count}\n{RESTORE_HINT}"
         )
     for sc_type in ("guardrail_input", "guardrail_tool", "guardrail_output"):
         count = len(df[df["type"] == sc_type])

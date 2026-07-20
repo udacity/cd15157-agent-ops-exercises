@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 import json
 import re
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Callable
 
 from langchain.agents.middleware import AgentMiddleware, AgentState, hook_config
-from langchain_core.messages import AIMessage
+from langchain_core.messages import AIMessage, ToolMessage
 from langgraph.runtime import Runtime
 
 
@@ -20,16 +22,9 @@ class UserContext:
     region_access: str = ""   # "all" for analysts; "west|south" for brokers; "" for guest
 
     def can_access_region(self, region: str) -> bool:
-        """TODO: Implement region access check.
-
-        Rules:
-          - analyst with region_access="all" can access any region
-          - broker can access their pipe-separated regions (e.g. "west|south")
-          - guest (region_access="") can access nothing
-
-        Return True if this user can query the given region.
-        """
-        raise NotImplementedError
+        if self.region_access == "all":
+            return True
+        return region in self.region_access.split("|")
 
 
 GUEST_CONTEXT = UserContext()
@@ -87,6 +82,11 @@ MUTATION_TOOLS = {
     "update_asking_price", "delete_lead", "overwrite_csv",
 }
 
+# Reasons that must terminate the run — the model must not fall back to a
+# different tool call to work around the block. Extend this set when adding
+# new user-context access restrictions. Pre-provided: before_model reads it.
+TERMINAL_ACCESS_REASONS = {"region_access", "dataset_mutation", "broker_action_restriction"}
+
 
 # ---------------------------------------------------------------------------
 # Policy constants — Layer 3 (output)
@@ -133,56 +133,36 @@ GEOGRAPHY_LEAK_TERMS = [
 # ---------------------------------------------------------------------------
 
 def _blocked_response(reason: str, message: str) -> str:
-    """Return a JSON-encoded blocked response string for wrap_tool_call."""
+    """Return a JSON-encoded blocked response string (used inside a ToolMessage)."""
     return json.dumps({"status": "blocked", "reason": reason, "message": message})
 
 
-def _blocked_exit(reason: str, message: str) -> dict[str, Any]:
-    """Return the standard early-exit dict for before_agent / after_agent."""
-    return {
-        "messages": [AIMessage(_blocked_response(reason, message))],
-        "jump_to": "end",
-    }
-
-
 def _redact_sensitive_fields(text: str) -> tuple[str, list[str]]:
-    """TODO: Replace sensitive field values in tool output with [REDACTED].
-
-    For each field name in SENSITIVE_FIELDS, use a regex to match the pattern:
-      <field_name>: <value>
-    and replace the value with [REDACTED].
-
-    Pattern hint: r'(?i)(<field_name>)\\s*[:=][^\\n,]+'
-    Replacement:  r'\\1: [REDACTED]'
-
-    Returns:
-      (cleaned_text, list_of_redacted_field_names)
-    """
-    raise NotImplementedError
+    """Strip sensitive field values from tool output. Returns (cleaned_text, redacted_fields)."""
+    redacted = []
+    for field in SENSITIVE_FIELDS:
+        pattern = rf"(?i)({re.escape(field)})\s*[:=][^\n,]+"
+        if re.search(pattern, text):
+            text = re.sub(pattern, rf"\1: [REDACTED]", text)
+            redacted.append(field)
+    return text, redacted
 
 
 # ---------------------------------------------------------------------------
-# Middleware
+# Layer 1 — Input guardrail
 # ---------------------------------------------------------------------------
 
-class RealThorGuardrails(AgentMiddleware):
-    """Three-layer guardrail middleware for RealThor v0.4.
-
-    Layer 1 (before_agent): validates and filters incoming queries.
-    Layer 2 (wrap_tool_call): enforces access control and redacts sensitive data.
-    Layer 3 (after_agent): scans the final response for sensitive phrases.
-    """
-
-    # -------------------------------------------------------------------------
-    # Layer 1 — Input guardrail
-    # -------------------------------------------------------------------------
+class InputGuardrails(AgentMiddleware):
+    """Block prohibited queries before the agent runs."""
 
     @hook_config(can_jump_to=["end"])
     def before_agent(self, state: AgentState, runtime: Runtime) -> dict[str, Any] | None:
         """TODO: Implement input guardrail.
 
-        Check the first human message in state["messages"] against the four
-        input policies. Return _blocked_exit(...) for any violation.
+        Check the first human message in state["messages"] against the six
+        input policies. On a violation, return a jump-to-end dict wrapping
+        _blocked_response(reason, message) in an AIMessage:
+            {"messages": [AIMessage(_blocked_response(reason, message))], "jump_to": "end"}
         Return None if all checks pass (query is allowed through).
 
         Policies to enforce:
@@ -199,53 +179,92 @@ class RealThorGuardrails(AgentMiddleware):
         """
         raise NotImplementedError
 
-    # -------------------------------------------------------------------------
-    # Layer 2 — Tool/action guardrail
-    # -------------------------------------------------------------------------
 
-    def wrap_tool_call(self, request: Any, handler: Any) -> str:
-        """TODO: Implement tool/action guardrail.
+# ---------------------------------------------------------------------------
+# Layer 2 — Tool/access guardrail
+# ---------------------------------------------------------------------------
+
+class ToolGuardrails(AgentMiddleware):
+    """Enforce role-based access on tool calls and redact sensitive fields.
+
+    wrap_tool_call blocks the individual tool call and records the reason in
+    the ToolMessage. before_model (pre-provided) fires before each model
+    iteration; if any blocked ToolMessage in the history has a reason in
+    TERMINAL_ACCESS_REASONS, it terminates the run before the model can fall
+    back to a different tool call to work around the block.
+    """
+
+    def wrap_tool_call(self, request: Any, handler: Callable) -> Any:
+        """TODO: Implement tool/access guardrail.
+
+        Extract identity and tool info at the top of the method:
+          tool_name    = request.tool_call["name"]
+          tool_call_id = request.tool_call["id"]
+          ctx          = request.runtime.context      # UserContext
+          tool_args    = request.tool_call["args"]
 
         Checks (in order):
           1. dataset_mutation          : tool_name in MUTATION_TOOLS → block for all roles
-          2. broker_action_restriction : tool_name in ACTION_TOOLS AND role != "analyst"
+          2. broker_action_restriction : tool_name in ACTION_TOOLS AND ctx.role != "analyst"
           3. region_access             : tool_args.get("region") is set AND
-                                         not user_ctx.can_access_region(region)
+                                         not ctx.can_access_region(region)
 
-        For passing calls:
-          - Call handler(request) to get the raw tool result (a string)
-          - Call _redact_sensitive_fields(result) to strip sensitive values
-          - If any fields were redacted, append a note:
-              f"\\n[guardrail: sensitive_field_read — redacted: {', '.join(redacted)}]"
-          - Return the (possibly redacted + annotated) result
-
-        IMPORTANT: wrap_tool_call must return ToolMessage | Command — NOT a plain
-        string. For blocked cases, wrap the JSON in a ToolMessage:
-
-          from langchain_core.messages import ToolMessage
+        Blocked cases must return a ToolMessage (NOT a plain string):
           return ToolMessage(
               content=_blocked_response(reason, msg),
               name=tool_name,
-              tool_call_id=request.tool_call["id"],
+              tool_call_id=tool_call_id,
           )
 
-        Identity is in: request.runtime.context  (a UserContext instance)
-        Tool name:      request.tool_call["name"]
-        Tool args:      request.tool_call["args"] (dict)
-        Tool call ID:   request.tool_call["id"]   (needed for ToolMessage)
+        For passing calls:
+          - result = handler(request)   # a ToolMessage
+          - cleaned, redacted = _redact_sensitive_fields(result.content)
+          - if redacted, return a new ToolMessage with cleaned content plus:
+              f"\\n[guardrail: sensitive_field_read — blocked fields: {', '.join(redacted)}]"
+          - otherwise return the original result unchanged
         """
         raise NotImplementedError
 
-    # -------------------------------------------------------------------------
-    # Layer 3 — Output guardrail
-    # -------------------------------------------------------------------------
+    @hook_config(can_jump_to=["end"])
+    def before_model(self, state: AgentState, runtime: Runtime) -> dict[str, Any] | None:
+        """Terminate the run if any terminal access block is in the message history.
+
+        Pre-provided. wrap_tool_call records a blocked ToolMessage (required so
+        OpenAI sees a response for every tool_call_id); this hook detects a
+        terminal reason in the history and stops before the model can retry.
+        """
+        for msg in state.get("messages", []):
+            if isinstance(msg, ToolMessage) and isinstance(msg.content, str):
+                try:
+                    payload = json.loads(msg.content)
+                    if payload.get("reason") in TERMINAL_ACCESS_REASONS:
+                        return {
+                            "messages": [AIMessage(_blocked_response(
+                                payload["reason"],
+                                payload.get("message", "Access denied."),
+                            ))],
+                            "jump_to": "end",
+                        }
+                except (json.JSONDecodeError, AttributeError):
+                    pass
+        return None
+
+
+# ---------------------------------------------------------------------------
+# Layer 3 — Output guardrail
+# ---------------------------------------------------------------------------
+
+class OutputGuardrails(AgentMiddleware):
+    """Block sensitive content in the final response."""
 
     @hook_config(can_jump_to=["end"])
     def after_agent(self, state: AgentState, runtime: Runtime) -> dict[str, Any] | None:
         """TODO: Implement output guardrail.
 
         Check the last message in state["messages"] against the three output
-        policies. Return _blocked_exit(...) for any violation.
+        policies. On a violation, return a jump-to-end dict wrapping
+        _blocked_response(reason, message) in an AIMessage:
+            {"messages": [AIMessage(_blocked_response(reason, message))], "jump_to": "end"}
         Return None if the output is clean.
 
         Policies to enforce:
@@ -257,3 +276,12 @@ class RealThorGuardrails(AgentMiddleware):
           - Empty state["messages"] (return None)
         """
         raise NotImplementedError
+
+
+# ---------------------------------------------------------------------------
+# Convenience — pass this list to create_agent(middleware=...)
+# ---------------------------------------------------------------------------
+
+def make_guardrails() -> list[AgentMiddleware]:
+    """Return the three guardrail layers in order."""
+    return [InputGuardrails(), ToolGuardrails(), OutputGuardrails()]

@@ -20,9 +20,9 @@ def _load_data():
     return demand, supply, neighborhoods, velocity, supply_opps, listings, sales
 
 
-def test_make_tools_returns_fourteen_tools():
+def test_make_tools_returns_fifteen_tools():
     tools = make_tools(*_load_data())
-    assert len(tools) == 14
+    assert len(tools) == 15
 
 
 def test_get_demand_signals_valid():

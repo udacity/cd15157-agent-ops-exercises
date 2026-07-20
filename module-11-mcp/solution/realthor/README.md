@@ -1,7 +1,7 @@
 # RealThor v0.11 — Agent Communication Protocols (MCP)
 
 Listing Supply Intelligence agent for the Ciudaty PropTech. In v0.11 RealThor stops being one
-system: its market-data tools no longer live in its own process — they are served by a **separate
+system: its market-data tools no longer live in its own process: they are served by a **separate
 MCP server** and RealThor consumes them over the **Model Context Protocol**. RealThor is now an
 MCP *client* of a standard tool service. The lesson of the final chapter: **scale comes from
 standard interfaces, not more custom integrations.**
@@ -84,19 +84,19 @@ need no server.
   and redaction) so guardrails still apply when the agent runs with `ainvoke`.
 - **`config.yaml`** — new `mcp:` section (transport + url; stdio alternative documented); prompt
   bumped to `system_prompt_v11.md`; version `0.11.0`.
-- **5 M11 eval scenarios** (106 total) — parity checks that a demand/supply/velocity answer is the
+- **5 MCP eval scenarios** (106 total) — parity checks that a demand/supply/velocity answer is the
   same whether the tool ran locally or over MCP.
 
 ### Identity + guardrails survive the boundary
 
 Because the agent, its `context_schema=UserContext`, and the guardrail/HITL middleware stay in
 RealThor's process and only *tool execution* is remote, identity-based guardrails still enforce
-in-process. A region-restricted broker asking outside their region is still blocked — the MCP
+in-process. A region-restricted broker asking outside their region is still blocked: the MCP
 server never sees identity; RealThor gates access before the call. The HITL-gated action tools
 (`submit_channel_recommendation`, `flag_segment_for_review`) stay local; only the read-only data
 tools move to MCP.
 
-> **Known limitation.** The MCP data service is unauthenticated — it trusts its caller on a
+> **Known limitation.** The MCP data service is unauthenticated: it trusts its caller on a
 > private network. A client reaching it directly would bypass RealThor's guardrails. Production
 > adds MCP-level auth (`headers: {Authorization: Bearer …}` on the client, a token check on the
 > server).
@@ -110,7 +110,7 @@ tools move to MCP.
 - **stdio** — the client launches the server as a subprocess over stdin/stdout (self-contained,
   no port). Uncomment the `mcp.command`/`mcp.args` block in `config.yaml` to use it.
 
-`load_mcp_tools` is transport-agnostic — it reads whichever the config selects.
+`load_mcp_tools` is transport-agnostic: it reads whichever the config selects.
 
 ---
 
