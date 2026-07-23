@@ -1,0 +1,23 @@
+[
+  {
+    "case": "pct-stale",
+    "query": "What percentage of active listings in the west region have been on the market for more than 45 days?",
+    "reference_code": "import pandas as pd; df=pd.read_csv('listings.csv'); west=df[(df['region']=='west')&(df['status']=='active')]; pct=round(len(west[west['days_on_market']>45])/len(west)*100,1); print(pct)",
+    "reference_label": "22.3% (39 of 175 active west listings)",
+    "expected_result": "22"
+  },
+  {
+    "case": "slowest-type",
+    "query": "Which property type has the highest average days on market for active listings?",
+    "reference_code": "import pandas as pd; df=pd.read_csv('listings.csv'); active=df[df['status']=='active']; avg=active.groupby('property_type')['days_on_market'].mean(); print(avg.idxmax())",
+    "reference_label": "house (51.9 days avg vs apartment: 40.3, studio: 50.0)",
+    "expected_result": "house"
+  },
+  {
+    "case": "by-region",
+    "query": "How many active listings does each region have, ranked from most to least?",
+    "reference_code": "import pandas as pd; df=pd.read_csv('listings.csv'); counts=df[df['status']=='active'].groupby('region').size().sort_values(ascending=False); print(counts.to_string())",
+    "reference_label": "center: 284, north: 283, east: 209, west: 175, south: 149",
+    "expected_result": "284"
+  }
+]

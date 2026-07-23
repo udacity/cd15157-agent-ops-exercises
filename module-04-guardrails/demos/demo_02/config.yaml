@@ -1,0 +1,13 @@
+agent:
+  name: RealThor
+  version: "0.4.0"
+
+model:
+  name: gpt-4o-mini
+  temperature: 0.0
+
+paths:
+  prompt: prompts/system_prompt_v4.md
+  demand_data: data/demand_signals.csv
+  supply_data: data/supply_snapshot.csv
+  users_data: data/users.csv
