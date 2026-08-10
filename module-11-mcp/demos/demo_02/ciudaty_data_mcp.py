@@ -1,14 +1,3 @@
-"""Demo 2, part 1 — build and serve a minimal MCP server with FastMCP.
-
-This is the mirror of demo 1: there we *consumed* open MCP servers; here we
-*build* one. A couple of `@mcp.tool` functions over a tiny CSV, served over
-streamable HTTP. Then `demo_02.ipynb` connects a plain agent to it.
-
-Run it (leave it running while you execute demo_02.ipynb):
-
-    uv run python demo_02.py            # http://localhost:8000/mcp
-"""
-
 from pathlib import Path
 
 import pandas as pd

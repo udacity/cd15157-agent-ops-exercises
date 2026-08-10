@@ -93,7 +93,7 @@ realthor/
 │   │   ├── make_replay_fixture.py  # regenerates state.db, model-free
 │   │   ├── replay_runs.jsonl       # matching log row
 │   │   └── sample_runs.jsonl
-│   ├── test_replay.py              # 6 unit tests (new)
+│   ├── test_replay.py              # 7 unit tests
 │   ├── test_monitor.py             # 9 unit tests
 │   ├── test_data_integrity.py      # 18 pre-provided, never modify
 │   ├── test_config.py / test_guardrails.py / test_policies.py

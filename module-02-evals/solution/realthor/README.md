@@ -44,7 +44,7 @@ Three prompt versions live in `prompts/`:
 
 Prompts are versioned files, not inline strings, so every change is tracked in git and every evaluation run references an explicit version. This is the foundation of prompt engineering discipline: you can always re-run any version against the full dataset and compare.
 
-The key lesson from v1 → v2 → v3: qualitative instructions like "be conservative" are ambiguous. The model interprets them differently across scenarios. Replacing them with explicit numeric rules (`if demand_score > 0.75 and supply_score < 0.40`) makes behavior predictable and testable.
+The key lesson from v1 → v2 → v3: qualitative instructions like "be conservative" are ambiguous. The model interprets them differently across scenarios. Replacing them with explicit numeric rules (`if demand_score > 0.75 and supply_score < 0.45`) makes behavior predictable and testable.
 
 ## Evaluation
 

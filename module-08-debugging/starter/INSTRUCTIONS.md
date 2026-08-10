@@ -17,7 +17,7 @@ and implement the **replay** logic that rebuilds a past run's execution context.
 - `monitor.py` — `RunRecord` already carries `prompt_version` and `dataset_version`.
 - `config.yaml` — `debug.state_db` path is set.
 - `tests/test_replay.py` + `tests/fixtures/state.db` — a real, offline checkpoint
-  fixture and 6 tests (currently failing).
+  fixture and 7 tests (currently failing).
 - Evaluation, data integrity, and all prior tests — unchanged.
 
 ## Your tasks — implement `src/realthor/replay.py`
@@ -40,7 +40,7 @@ and implement the **replay** logic that rebuilds a past run's execution context.
 ```bash
 uv sync
 cp .env.example .env   # then set LLM_PROVIDER (vocareum by default) and its key
-uv run pytest tests/test_replay.py -v   # 6 tests, no API key needed
+uv run pytest tests/test_replay.py -v   # 7 tests, no API key needed
 sh ops.sh
 
 # End to end
