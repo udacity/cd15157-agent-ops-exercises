@@ -1,0 +1,6 @@
+{
+  "python-envs.terminal.autoActivationType": "off",
+  "python.terminal.activateEnvironment": false,
+  "python.defaultInterpreterPath": "${workspaceFolder}/realthor/.venv",
+  "python-envs.workspaceSearchPaths": ["mcp/.venv", "realthor/.venv"]
+}

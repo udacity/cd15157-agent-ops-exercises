@@ -1,6 +1,0 @@
-{
-  "python-envs.terminal.autoActivationType": "off",
-  "python.terminal.activateEnvironment": false,
-  "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
-  "python-envs.workspaceSearchPaths": [".venv"]
-}
